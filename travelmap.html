@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>九州5天4夜 纯自然路线演示</title>
+<style>
+  body { 
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+    background: #f8f9fa; 
+    padding: 20px; 
+    text-align: center; 
+    color: #333;
+  }
+  h2 { color: #2c3e50; }
+  /* 地图主容器：用浅绿色背景模拟九州大地 */
+  #map-container { 
+    position: relative; 
+    width: 100%; 
+    max-width: 700px; 
+    height: 500px; 
+    background: #e9f5e9; 
+    margin: 0 auto; 
+    border-radius: 12px; 
+    border: 2px solid #bdc3c7; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden; 
+  }
+  /* 地点圆点 */
+  .point { 
+    position: absolute; 
+    width: 12px; 
+    height: 12px; 
+    background: #2c3e50; 
+    border-radius: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 2; 
+  }
+  /* 地点文字标签 */
+  .label { 
+    position: absolute; 
+    font-weight: bold; 
+    color: #2c3e50; 
+    font-size: 14px; 
+    background: rgba(255,255,255,0.85); 
+    padding: 3px 6px; 
+    border-radius: 4px; 
+    transform: translate(-50%, 12px); 
+    z-index: 2; 
+    pointer-events: none; 
+  }
+  /* 路线连线层 */
+  svg { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; 
+  }
+  /* 代表你们的红色移动标记 */
+  #marker { 
+    position: absolute; 
+    width: 18px; 
+    height: 18px; 
+    background: #e74c3c; 
+    border-radius: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 3; 
+    transition: all 0.8s ease-in-out; 
+    box-shadow: 0 0 10px rgba(231,76,60,0.8); 
+  }
+  /* 底部控制台 */
+  #controls { 
+    margin-top: 25px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+  button { 
+    padding: 10px 24px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    background: #3498db; 
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+  button:hover { background: #2980b9; }
+  input[type=range] { 
+    width: 300px; 
+    cursor: pointer;
+  }
+  #dayLabel { font-weight: bold; font-size: 16px; color: #7f8c8d; min-width: 50px;}
+  /* 行程文字解说 */
+  #status { 
+    margin-top: 20px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    color: #e67e22; 
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+</style>
+</head>
+<body>
+
+<h2>九州5天4夜 纯自然版动线演示</h2>
+
+<div id="map-container">
+  <svg id="lines"></svg>
+  <div id="marker"></div>
+  <!-- 地点将通过JS自动生成 -->
+</div>
+
+<div id="status">Day 1: 准备出发！</div>
+
+<div id="controls">
+  <button id="playBtn">▶ 播放路线</button>
+  <input type="range" id="daySlider" min="0" max="5" value="0">
+  <span id="dayLabel">Start</span>
+</div>
+
+<script>
+  // 定义地图上的相对坐标 (x为横向百分比，y为纵向百分比，大致对应真实地理方位)
+  const points = {
+    0: { name: '抵达', x: 25, y: 70 }, // 隐藏的起点
+    1: { name: '熊本机场提车', x: 35, y: 65 },
+    2: { name: '阿苏区域 (菊池/大观峰/火山)', x: 50, y: 65 },
+    3: { name: '高千穗峡', x: 65, y: 85 },
+    4: { name: '九重町/山并公路', x: 60, y: 45 },
+    5: { name: '别府温泉', x: 82, y: 35 },
+    6: { name: '福冈市区', x: 20, y: 20 }
+  };
+
+  // 定义每天的行程逻辑
+  const days = [
+    { day: 0, pos: 1, text: "点击播放或拖动滑块查看路线行程" },
+    { day: 1, pos: 2, text: "Day 1: 落地熊本提车 → 菊池溪谷轻徒步 → 阿苏大观峰 → 住阿苏" },
+    { day: 2, pos: 3, text: "Day 2: 阿苏火山口 → 乌帽子岳徒步 → 前往高千穗 → 住高千穗" },
+    { day: 3, pos: 4, text: "Day 3: 高千穗泛舟徒步 → 自驾最美山并公路 → 住九重町" },
+    { day: 4, pos: 5, text: "Day 4: 九重湿地/梦大吊桥 → 抵达别府 → 晚上吃地狱蒸 → 住别府" },
+    { day: 5, pos: 6, text: "Day 5: 别府鹤见岳缆车 → 驱车前往福冈 → 逛吃买买买 → 福冈返程" }
+  ];
+
+  const container = document.getElementById('map-container');
+  const svg = document.getElementById('lines');
+  const marker = document.getElementById('marker');
+  const slider = document.getElementById('daySlider');
+  const status = document.getElementById('status');
+  const dayLabel = document.getElementById('dayLabel');
+  const playBtn = document.getElementById('playBtn');
+
+  // 在地图上绘制真实的地理节点 (跳过起点标记)
+  for (let i = 1; i <= 6; i++) {
+    const p = points[i];
+    const pt = document.createElement('div');
+    pt.className = 'point';
+    pt.style.left = p.x + '%';
+    pt.style.top = p.y + '%';
+    container.appendChild(pt);
+
+    const lbl = document.createElement('div');
+    lbl.className = 'label';
+    lbl.innerText = p.name;
+    lbl.style.left = p.x + '%';
+    lbl.style.top = p.y + '%';
+    container.appendChild(lbl);
+  }
+
+  // 绘制虚线路线轨迹
+  const routeOrder = [1, 2, 3, 4, 5, 6];
+  for (let i = 0; i < routeOrder.length - 1; i++) {
+    const p1 = points[routeOrder[i]];
+    const p2 = points[routeOrder[i+1]];
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", p1.x + "%");
+    line.setAttribute("y1", p1.y + "%");
+    line.setAttribute("x2", p2.x + "%");
+    line.setAttribute("y2", p2.y + "%");
+    line.setAttribute("stroke", "#95a5a6");
+    line.setAttribute("stroke-width", "3");
+    line.setAttribute("stroke-dasharray", "6,6");
+    svg.appendChild(line);
+  }
+
+  // 更新页面状态的函数
+  function updateMap(dayIndex) {
+    const dayData = days[dayIndex];
+    const targetPoint = points[dayData.pos];
+    
+    // 移动红点
+    marker.style.left = targetPoint.x + '%';
+    marker.style.top = targetPoint.y + '%';
+    
+    // 更新文字
+    status.innerText = dayData.text;
+    dayLabel.innerText = dayIndex === 0 ? "Start" : "Day " + dayIndex;
+    slider.value = dayIndex;
+  }
+
+  // 自动播放逻辑
+  let interval;
+  let isPlaying = false;
+
+  playBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      clearInterval(interval);
+      playBtn.innerText = "▶ 播放路线";
+      isPlaying = false;
+    } else {
+      playBtn.innerText = "⏸ 暂停播放";
+      isPlaying = true;
+      // 如果已经到底了，重置回第一天
+      if(slider.value == 5) slider.value = 0; 
+      
+      interval = setInterval(() => {
+        let val = parseInt(slider.value) + 1;
+        if (val > 5) {
+          clearInterval(interval);
+          playBtn.innerText = "▶ 播放路线";
+          isPlaying = false;
+        } else {
+          updateMap(val);
+        }
+      }, 2000); // 每2秒移动一步
+    }
+  });
+
+  // 手动拖动滑块逻辑
+  slider.addEventListener('input', (e) => {
+    if (isPlaying) {
+      clearInterval(interval);
+      playBtn.innerText = "▶ 播放路线";
+      isPlaying = false;
+    }
+    updateMap(parseInt(e.target.value));
+  });
+
+  // 初始化地图位置
+  updateMap(0);
+</script>
+
+</body>
+</html>
