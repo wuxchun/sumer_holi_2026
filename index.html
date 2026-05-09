@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Mermaid.js for Decision Tree Diagram -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -209,6 +212,31 @@
             .timeline-desc { font-size: 0.82rem; }
             .budget-table thead th, .budget-table tbody td { padding: 8px 10px; font-size: 0.75rem; }
         }
+        /* Mermaid 图表样式保护 - 确保不被页面其他 CSS 影响 */
+        .mermaid-section .mermaid {
+            background: white !important;
+            border-radius: 16px !important;
+            padding: 20px !important;
+            overflow-x: auto !important;
+            font-family: 'Noto Sans SC', sans-serif !important;
+        }
+        .mermaid-section .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        .mermaid-section .decision-tree-card {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+            padding: 24px;
+        }
+        @media (max-width: 768px) {
+            .mermaid-section .decision-tree-card { padding: 12px; }
+            .mermaid-section .mermaid { padding: 10px !important; }
+        }
+
         @media print {
             .nav-bar, .floating-particles, .mobile-menu, .mobile-overlay { display: none !important; }
             .hero-section { height: auto !important; min-height: auto !important; }
@@ -229,6 +257,7 @@
         </button>
         <div class="flex flex-col gap-6 mt-8">
             <a href="#overview" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">行程概览</a>
+            <a href="#decision-tree" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">决策树</a>
             <a href="#flow" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">动线示意图</a>
             <a href="#itinerary" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">每日行程</a>
             <a href="#risks" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">风险排查</a>
@@ -247,6 +276,7 @@
                 </a>
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#overview" class="nav-link">行程概览</a>
+                    <a href="#decision-tree" class="nav-link">决策树</a>
                     <a href="#flow" class="nav-link">动线示意图</a>
                     <a href="#itinerary" class="nav-link">每日行程</a>
                     <a href="#risks" class="nav-link">风险排查</a>
@@ -291,6 +321,66 @@
                     <i data-lucide="users" class="inline-block w-4 h-4 mr-1" style="display:inline;vertical-align:middle;"></i>
                     一场属于我们仨的九州夏日冒险
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 2026 暑期行程决策树 ===== -->
+    <section id="decision-tree" class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto mt-16 sm:mt-24 mermaid-section">
+        <div class="text-center mb-10 sm:mb-14">
+            <h2 class="section-title">
+                <i data-lucide="git-branch" class="inline-block w-6 h-6 mr-2 text-emerald-500" style="display:inline;vertical-align:middle;"></i>
+                📅 2026 暑期行程决策树（基于花火大会抢票结果）
+            </h2>
+            <p class="section-subtitle">5/10 中午抢票结果决定两条路线，提前规划无忧</p>
+        </div>
+        <div class="decision-tree-card">
+            <div class="mermaid">
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#F0FAF3', 'primaryTextColor': '#1a3a2a', 'primaryBorderColor': '#7ec8a3', 'lineColor': '#7ec8a3', 'edgeLabelBackground': '#ffffff', 'tertiaryColor': '#ffffff'}}}%%
+graph TD
+    A(["开始: 规划 2026 暑期日本游"]) --> B["当前状态: 晓春在东京两国"]
+    A --> C["家人状态: 7月上海暑假"]
+    B & C --> D{"5/10 中午 12:00<br/>Ticket Pay 市民席抢票"}
+
+    D -- "【分支A】抢票成功<br/>(拿下两国主场席位!)" --> E["分支A: 9天豪华东京花火闭环版"]
+    D -- "【分支B】抢票失败<br/>(遗憾错过)" --> F["分支B: 7天九州精简版"]
+
+    subgraph 分支A_流程 ["分支A: 9天豪华东京花火闭环版"]
+        direction TB
+        A1["5月中旬: 确定 transition 项目衔接"]
+        A2["5/20前: 购买开口航班<br/>去程:上海-福冈 / 回程:东京-上海"]
+        A3["5/20前: 购买国内机票<br/>7/24 福冈-东京(JAL 早鸟票)"]
+        A4["5/20前: 预订所有酒店<br/>(含7/24-26东京两国两晚)"]
+        A5["[7/18-7/20: 日本三连休公众假]"]
+        T1("晓春开始请假 4天: 7/21-7/24")
+        TripA1["7/18(周六): 家人抵福冈, 逛吃天神/博多"]
+        TripA2["7/19(周日): 多出的1天! TBD"]
+        TripA3["7/20(周一): 海之日假! 熊本城+进入阿苏"]
+        TripA4["7/21-7/23: 阿苏/高千穗/别府环线"]
+        TripA5["7/24(周五): 福冈飞羽田, 晓春东道主!"]
+        TripA6["7/25(周六): 两国花火节祭典<br/>白天逛街, 晚上看花火!"]
+        TripA7["7/26(周日): 家人东京飞上海回沪<br/>晓春满血复活迎接Transition技术周"]
+
+        A1 --> A2 --> A3 --> A4 --> A5 --> T1 --> TripA1 --> TripA2 --> TripA3 --> TripA4 --> TripA5 --> TripA6 --> TripA7
+    end
+
+    subgraph 分支B_流程 ["分支B: 7天九州精简版"]
+        direction TB
+        B1["5/20前: 购买航班<br/>上海 往返 福冈"]
+        B2["5/20前: 预订九州所有酒店"]
+        B3["[7/18-7/20: 日本三连休公众假]"]
+        T2("晓春开始请假 3天: 7/21-7/23")
+        TripB1["7/18(周六): 家人抵福冈, 逛吃博多"]
+        TripB2["7/19(周日): 多出的1天! 门司港或柳川"]
+        TripB3["7/20(周一): 熊本城+阿苏"]
+        TripB4["7/21-7/23: 阿苏/高千穗/别府精简环线"]
+        TripB5["7/24(周五): 家人福冈飞上海回国<br/>晓春周五晚上飞回东京两国"]
+
+        B1 --> B2 --> B3 --> T2 --> TripB1 --> TripB2 --> TripB3 --> TripB4 --> TripB5
+    end
+
+    E --> 分支A_流程
+    F --> 分支B_流程
             </div>
         </div>
     </section>
