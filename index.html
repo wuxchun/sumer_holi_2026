@@ -8,9 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Mermaid.js for Decision Tree Diagram (本地加载，无需 CDN) -->
-    <script src="js/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -212,31 +209,6 @@
             .timeline-desc { font-size: 0.82rem; }
             .budget-table thead th, .budget-table tbody td { padding: 8px 10px; font-size: 0.75rem; }
         }
-        /* Mermaid 图表样式保护 - 确保不被页面其他 CSS 影响 */
-        .mermaid-section .mermaid {
-            background: white !important;
-            border-radius: 16px !important;
-            padding: 20px !important;
-            overflow-x: auto !important;
-            font-family: 'Noto Sans SC', sans-serif !important;
-        }
-        .mermaid-section .mermaid svg {
-            max-width: 100% !important;
-            height: auto !important;
-        }
-        .mermaid-section .decision-tree-card {
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.8);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
-            padding: 24px;
-        }
-        @media (max-width: 768px) {
-            .mermaid-section .decision-tree-card { padding: 12px; }
-            .mermaid-section .mermaid { padding: 10px !important; }
-        }
-
         @media print {
             .nav-bar, .floating-particles, .mobile-menu, .mobile-overlay { display: none !important; }
             .hero-section { height: auto !important; min-height: auto !important; }
@@ -620,25 +592,25 @@
         </div>
         <div class="glass-card p-6 sm:p-8">
             <div class="space-y-2">
-                <div class="todo-item" onclick="toggleTodo(this)">
+                <div class="todo-item checked" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"><i data-lucide="check"></i></div>
                     <div class="todo-text">预订上海/东京往返福冈机票（LCC）</div>
-                    <span class="todo-tag urgent">紧急</span>
+                    <span class="todo-tag done">已完成</span>
                 </div>
-                <div class="todo-item" onclick="toggleTodo(this)">
+                <div class="todo-item checked" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"><i data-lucide="check"></i></div>
                     <div class="todo-text">预订阿苏温泉旅馆（Day 1）</div>
-                    <span class="todo-tag important">重要</span>
+                    <span class="todo-tag done">已完成</span>
                 </div>
-                <div class="todo-item" onclick="toggleTodo(this)">
+                <div class="todo-item checked" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"><i data-lucide="check"></i></div>
                     <div class="todo-text">预订九重温泉民宿（Day 2-3）</div>
-                    <span class="todo-tag important">重要</span>
+                    <span class="todo-tag done">已完成</span>
                 </div>
-                <div class="todo-item" onclick="toggleTodo(this)">
+                <div class="todo-item checked" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"><i data-lucide="check"></i></div>
                     <div class="todo-text">预订别府温泉旅馆（Day 4）</div>
-                    <span class="todo-tag important">重要</span>
+                    <span class="todo-tag done">已完成</span>
                 </div>
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"><i data-lucide="check"></i></div>
@@ -657,28 +629,8 @@
                 </div>
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"><i data-lucide="check"></i></div>
-                    <div class="todo-text">兑换日元现金（建议每人3-5万JPY）</div>
+                    <div class="todo-text">准备夏季衣物、防晒用品、常备药品</div>
                     <span class="todo-tag normal">一般</span>
-                </div>
-                <div class="todo-item" onclick="toggleTodo(this)">
-                    <div class="todo-checkbox"><i data-lucide="check"></i></div>
-                    <div class="todo-text">购买旅行保险（含医疗、行李延误、行程取消）</div>
-                    <span class="todo-tag urgent">紧急</span>
-                </div>
-                <div class="todo-item" onclick="toggleTodo(this)">
-                    <div class="todo-checkbox"><i data-lucide="check"></i></div>
-                    <div class="todo-text">下载离线地图、翻译App、交通App</div>
-                    <span class="todo-tag normal">一般</span>
-                </div>
-                <div class="todo-item" onclick="toggleTodo(this)">
-                    <div class="todo-checkbox"><i data-lucide="check"></i></div>
-                    <div class="todo-text">准备夏季衣物、防晒用品、晕车药、常备药品</div>
-                    <span class="todo-tag normal">一般</span>
-                </div>
-                <div class="todo-item" onclick="toggleTodo(this)">
-                    <div class="todo-checkbox"><i data-lucide="check"></i></div>
-                    <div class="todo-text">确认各人护照有效期（6个月以上）</div>
-                    <span class="todo-tag urgent">紧急</span>
                 </div>
             </div>
         </div>
@@ -687,7 +639,7 @@
     <!-- ==================== 已确定的花费预算 ==================== -->
     <section id="budget" class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto mt-16 sm:mt-24">
         <div class="text-center mb-10 sm:mb-14">
-            <h2 class="section-title"><i data-lucide="wallet" class="inline-block w-6 h-6 mr-2 text-emerald-500" style="display:inline;vertical-align:middle;"></i>已确定的花费预算</h2>
+            <h2 class="section-title"><i data-lucide="wallet" class="inline-block w-6 h-6 mr-2 text-emerald-500" style="display:inline;vertical-align:middle;"></i>已确定的花费预算 (核心硬支出)</h2>
             <p class="section-subtitle">已付账单与核心硬支出一览</p>
         </div>
         <div class="glass-card p-6 sm:p-8">
@@ -700,21 +652,71 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr class="total-row">
+                        <td colspan="3" style="background: linear-gradient(135deg, #E9F5E9, #f0faf3); font-weight: 700; color: #1a3a2a; text-align: center; font-size: 1rem;">
+                            💴 人民币已付账单（共计：6,666 元 人民币）
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <span class="category-icon flight">✈️</span>
-                            <span class="font-medium text-gray-700">人民币已付账单</span>
+                            <span class="font-medium text-gray-700">两人上海往返机票</span>
                         </td>
-                        <td class="text-gray-600">两人上海往返机票合计</td>
-                        <td class="font-medium text-gray-700">6,666 元</td>
+                        <td class="text-gray-600">去程：春秋航空(9C6609) 上海浦东→福冈 + 回程：国航(CA930) 福冈→上海浦东</td>
+                        <td class="font-medium text-gray-700">6,666 元 人民币</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3" style="background: linear-gradient(135deg, #E9F5E9, #f0faf3); font-weight: 700; color: #1a3a2a; text-align: center; font-size: 1rem;">
+                            💴 日元已付账单（共计：308,553 日元，约 人民币 14,348 元）
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="category-icon flight">✈️</span>
+                            <span class="font-medium text-gray-700">日本国内机票</span>
+                        </td>
+                        <td class="text-gray-600">东京羽田 ➔ 福冈（全日空 单人）</td>
+                        <td class="font-medium text-gray-700">15,740 日元<br><span class="text-xs text-gray-400">(约 人民币 732 元)</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="category-icon flight">✈️</span>
+                            <span class="font-medium text-gray-700">日本国内机票</span>
+                        </td>
+                        <td class="text-gray-600">福冈 ➔ 东京羽田（全日空 三人）</td>
+                        <td class="font-medium text-gray-700">41,940 日元<br><span class="text-xs text-gray-400">(约 人民币 1,950 元)</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="category-icon hotel">🏨</span>
-                            <span class="font-medium text-gray-700">日元已付账单</span>
+                            <span class="font-medium text-gray-700">Day 1 住宿</span>
                         </td>
-                        <td class="text-gray-600">晓春单人日本国内往返机票 + 4晚全家住宿</td>
-                        <td class="font-medium text-gray-700">308,553 日元<br><span class="text-xs text-gray-400">(约 14,348 元)</span></td>
+                        <td class="text-gray-600">阿苏 阿斯博日式旅馆</td>
+                        <td class="font-medium text-gray-700">34,088 日元<br><span class="text-xs text-gray-400">(约 人民币 1,585 元)</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="category-icon hotel">🏨</span>
+                            <span class="font-medium text-gray-700">Day 2 住宿</span>
+                        </td>
+                        <td class="text-gray-600">高千穗 索雷斯特酒店 (双人房+单人房)</td>
+                        <td class="font-medium text-gray-700">55,913 日元<br><span class="text-xs text-gray-400">(约 人民币 2,600 元)</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="category-icon hotel">🏨</span>
+                            <span class="font-medium text-gray-700">Day 3 住宿</span>
+                        </td>
+                        <td class="text-gray-600">九重 久织亭 (独栋私汤)</td>
+                        <td class="font-medium text-gray-700">122,406 日元<br><span class="text-xs text-gray-400">(约 人民币 5,692 元)</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="category-icon hotel">🏨</span>
+                            <span class="font-medium text-gray-700">Day 4 住宿</span>
+                        </td>
+                        <td class="text-gray-600">大分 JR九州布鲁斯姆酒店</td>
+                        <td class="font-medium text-gray-700">38,466 日元<br><span class="text-xs text-gray-400">(约 人民币 1,789 元)</span></td>
                     </tr>
                     <tr class="total-row">
                         <td>
@@ -722,7 +724,7 @@
                             <span class="font-medium">当前已发生核心硬支出总计</span>
                         </td>
                         <td class="text-gray-600">旅馆先预定，还未付帐，可以在7月之前取消</td>
-                        <td class="font-bold text-emerald-700 text-lg">约 21,014 元</td>
+                        <td class="font-bold text-emerald-700 text-lg">约 21,014 元 人民币</td>
                     </tr>
                 </tbody>
             </table>
