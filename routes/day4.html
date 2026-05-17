@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九重山海间 —— 湿地散步、大吊桥与空中俯瞰别府湾</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #FDF5E6; color: #2d3436; line-height: 1.8; overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F0F8FF; }
+        ::-webkit-scrollbar-thumb { background: #a8d5ba; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7ec8a3; }
+
+        .hero-section {
+            position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden;
+            background: linear-gradient(135deg, #2d5a3a 0%, #4a8a5a 30%, #6aac7a 60%, #8ac89a 100%);
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.3) 50%, rgba(253,245,230,0.9) 100%);
+        }
+        .hero-content {
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+            text-align: center; width: 90%; max-width: 800px; z-index: 10;
+        }
+        .hero-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.8rem,5vw,3.2rem); font-weight: 700;
+            color: white; text-shadow: 0 2px 20px rgba(0,0,0,0.4); line-height: 1.3; margin-bottom: 8px;
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem,2vw,1.1rem); color: rgba(255,255,255,0.9); font-weight: 300;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+            display: inline-block; padding: 6px 20px; border-radius: 30px;
+        }
+
+        .glass-card {
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8); border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.4rem,3.5vw,2rem); font-weight: 700;
+            color: #1a3a2a; position: relative; display: inline-block; margin-bottom: 12px;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 60%; height: 3px;
+            background: linear-gradient(90deg, #7ec8a3, transparent); border-radius: 2px;
+        }
+
+        .spot-card {
+            border-radius: 16px; overflow: hidden; background: white;
+            border: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .spot-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .spot-card-header {
+            padding: 20px 24px 12px; display: flex; align-items: center; gap: 14px;
+            border-bottom: 1px solid rgba(126,200,163,0.1);
+        }
+        .spot-card-icon {
+            width: 44px; height: 44px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;
+        }
+        .spot-card-body { padding: 16px 24px 24px; }
+
+        .info-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(126,200,163,0.1); border: 1px solid rgba(126,200,163,0.3);
+            padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; color: #2d7d46;
+        }
+
+        .alert-box {
+            border-radius: 14px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px;
+        }
+        .alert-box.warning { background: #fef9e7; border: 1px solid #f9e79f; }
+        .alert-box.info { background: #eaf2f8; border: 1px solid #aed6f1; }
+        .alert-box.success { background: #e8f8e8; border: 1px solid #a9dfbf; }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(126,200,163,0.3);
+        }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126,200,163,0.4); }
+
+        .nav-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(253,245,230,0.85); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+        }
+
+        .step-card {
+            border-radius: 16px; background: white;
+            border: 1px solid rgba(126,200,163,0.15); overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04); transition: all 0.3s ease;
+        }
+        .step-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .step-number {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; flex-shrink: 0;
+        }
+
+        .transport-node {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px; border-radius: 12px;
+            background: rgba(255,255,255,0.6); border: 1px solid rgba(126,200,163,0.15);
+        }
+        .transport-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 45vh; min-height: 320px; }
+            .hero-content { bottom: 5%; }
+            .spot-card-header { padding: 16px 18px 10px; }
+            .spot-card-body { padding: 12px 18px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16">
+                <a href="../index.html" class="flex items-center gap-2 text-emerald-800 font-bold text-sm sm:text-base">
+                    <i data-lucide="leaf" class="w-5 h-5 text-emerald-500"></i>
+                    <span>九州·夏日物语</span>
+                </a>
+                <a href="../index.html" class="text-sm text-emerald-600 hover:text-emerald-800 transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> 返回主页
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">🏔️ 九重山海间</h1>
+            <p class="hero-subtitle">湿地散步 · 大吊桥 · 空中俯瞰别府湾 · 乡野慢交通一日</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto -mt-16">
+        <div class="glass-card p-6 sm:p-10">
+            <!-- Quick Info -->
+            <div class="flex flex-wrap gap-3 mb-8">
+                <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 大分县九重町 → 别府市</span>
+                <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 全天行程 09:00 - 18:30</span>
+                <span class="info-badge"><i data-lucide="bus" class="w-4 h-4"></i> 社区巴士 + JR 慢车 + 缆车</span>
+            </div>
+
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Day 4 是全程交通最"乡野"的一天——没有包车，全靠社区巴士和 JR 慢车串联。从九重高原的湿地晨间散步开始，跨过日本最大吊桥，再一路南下跨越山海抵达别府，最后坐缆车直上云霄俯瞰别府湾。这是一场真正的"慢旅"体验。
+            </p>
+
+            <!-- ===== Step 1: 蓼原湿地 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">1</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">蓼原湿地 (Tadewara Marshland) 晨间轻氧</div>
+                        <div class="text-sm text-gray-500">长者原游客中心正后方 · 40 分钟满喫路线</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 入口：长者原游客中心正后方</span>
+                        <span class="info-badge"><i data-lucide="footprints" class="w-4 h-4"></i> B 路线 · 约 1500 米</span>
+                        <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 约 40 分钟</span>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        推荐走<strong>【B 路线 - 一周满喫路线】</strong>，深入湿地腹地。沿途是长满芒草的辽阔平原，天气晴朗时，远方九重连山的绝美倒影映在水面之上，仿佛行走在画中。木栈道平坦好走，适合全家人轻松散步。
+                    </p>
+                    <div class="alert-box success mt-4">
+                        <span class="text-xl">🌿</span>
+                        <div>
+                            <div class="font-semibold text-green-800 text-sm">晨间推荐</div>
+                            <div class="text-xs text-green-700 mt-1">建议 09:00 出发，清晨空气清新，游客稀少，是拍摄倒影的最佳时段。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 2: 九重梦大吊桥 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">2</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">前往九重"梦"大吊桥</div>
+                        <div class="text-sm text-gray-500">公共交通法 · 社区巴士 + 390 米巨桥</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="transport-node mb-4">
+                        <div class="transport-icon" style="background:#e8f8e8;">🚌</div>
+                        <div>
+                            <div class="font-semibold text-sm text-gray-700">九重町社区巴士 (九重町コミュニティバス)</div>
+                            <div class="text-xs text-gray-500">上车站：くじゅう登山口 (长者原站) → 下车站：大吊橋中村口</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        搭乘社区巴士抵达<strong>九重"梦"大吊桥</strong>——全长 390 米、高 173 米的日本最大步行吊桥。走在桥上，脚下是深邃的溪谷，四周是九重连山的壮丽景色。桥的对面有餐厅和伴手礼店，可以在这里享用午餐。
+                    </p>
+                    <div class="alert-box info mt-4">
+                        <span class="text-xl">💡</span>
+                        <div>
+                            <div class="font-semibold text-blue-800 text-sm">午餐推荐</div>
+                            <div class="text-xs text-blue-700 mt-1">桥对面的餐厅有丰后牛丼、大分名产鸡肉天妇罗等，建议在此解决午餐。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 3: 跨越山海前往别府 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">3</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">跨越山海前往别府 (JR 慢旅)</div>
+                        <div class="text-sm text-gray-500">巴士 → JR 久大本线 → JR 日丰本线</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="space-y-3">
+                        <div class="transport-node">
+                            <div class="transport-icon" style="background:#e8f8e8;">🚌</div>
+                            <div>
+                                <div class="font-semibold text-sm text-gray-700">巴士段</div>
+                                <div class="text-xs text-gray-500">继续搭乘社区巴士，由"大吊橋中村口"坐到终点站【JR 丰后中村站】</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center text-emerald-400">
+                            <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                        </div>
+                        <div class="transport-node">
+                            <div class="transport-icon" style="background:#e8f4fd;">🚃</div>
+                            <div>
+                                <div class="font-semibold text-sm text-gray-700">JR 铁道段</div>
+                                <div class="text-xs text-gray-500">搭乘 JR 久大本线前往【大分站】，之后同站换乘 JR 日丰本线抵达【别府站】</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert-box warning mt-4">
+                        <span class="text-xl">⏰</span>
+                        <div>
+                            <div class="font-semibold text-amber-800 text-sm">时刻表提醒</div>
+                            <div class="text-xs text-amber-700 mt-1">九重町社区巴士班次较少，建议提前查好时刻表，避免长时间等待。JR 久大本线约每小时一班，请预留充足的换乘时间。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 4: 鹤见岳缆车 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">4</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">别府站 ➔ 鹤见岳缆车 (一键直达)</div>
+                        <div class="text-sm text-gray-500">龟之井巴士 [36] 号线 · 1375 米山顶</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="transport-node mb-4">
+                        <div class="transport-icon" style="background:#fef3e2;">🚌</div>
+                        <div>
+                            <div class="font-semibold text-sm text-gray-700">龟之井巴士 [36] 号线 (往汤布院方向)</div>
+                            <div class="text-xs text-gray-500">上车点：别府站西口 1 号公交站台 → 下车站：别府索道 (別府ロープウェイ) 站</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        坐缆车直达<strong>1375 米山顶</strong>，360 度俯瞰别府湾与城市全景。山顶展望台视野极佳，天气晴朗时可以看到别府市区、别府湾，甚至远方的四国山脉。日落时分更是绝美，是 Day 4 最完美的收官体验。
+                    </p>
+                    <div class="alert-box success mt-4">
+                        <span class="text-xl">🌅</span>
+                        <div>
+                            <div class="font-semibold text-green-800 text-sm">最佳时间</div>
+                            <div class="text-xs text-green-700 mt-1">建议在 16:30-17:00 左右抵达缆车站，乘坐缆车上山正好赶上日落，之后搭乘 JR 特急（约 15 分钟）前往大分市入住酒店。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-10 text-center">
+                <a href="../index.html" class="back-btn">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    返回主页
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-16 footer-gradient text-white" style="background: linear-gradient(135deg, #1a3a2a, #2d5a3a);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+            <p class="text-emerald-200 text-sm">© 2026 九州夏日之旅 · 九重山海间详细指南</p>
+            <a href="../index.html" class="text-emerald-300 hover:text-white text-xs mt-2 inline-block transition-colors">← 返回九州夏日之旅主页</a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
