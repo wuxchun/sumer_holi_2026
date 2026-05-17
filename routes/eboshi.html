@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乌帽子岳 (Eboshidake) — 火山绝景环线徒步</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #FDF5E6; color: #2d3436; line-height: 1.8; overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F0F8FF; }
+        ::-webkit-scrollbar-thumb { background: #a8d5ba; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7ec8a3; }
+
+        .hero-section {
+            position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden;
+            background: linear-gradient(135deg, #4a4a4a 0%, #6d6d6d 30%, #8b4513 60%, #a0522d 100%);
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(253,245,230,0.9) 100%);
+        }
+        .hero-content {
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+            text-align: center; width: 90%; max-width: 800px; z-index: 10;
+        }
+        .hero-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.8rem,5vw,3.2rem); font-weight: 700;
+            color: white; text-shadow: 0 2px 20px rgba(0,0,0,0.5); line-height: 1.3; margin-bottom: 8px;
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem,2vw,1.1rem); color: rgba(255,255,255,0.9); font-weight: 300;
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(5px);
+            display: inline-block; padding: 6px 20px; border-radius: 30px;
+        }
+
+        .glass-card {
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8); border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.4rem,3.5vw,2rem); font-weight: 700;
+            color: #1a3a2a; position: relative; display: inline-block; margin-bottom: 12px;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 60%; height: 3px;
+            background: linear-gradient(90deg, #7ec8a3, transparent); border-radius: 2px;
+        }
+
+        .route-step {
+            display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px;
+            border-radius: 16px; background: rgba(255,255,255,0.5); border: 1px solid rgba(126,200,163,0.15);
+            transition: all 0.3s ease;
+        }
+        .route-step:hover { background: rgba(255,255,255,0.9); border-color: rgba(126,200,163,0.3); transform: translateX(4px); }
+        .route-step-number {
+            width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px;
+        }
+
+        .info-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(126,200,163,0.1); border: 1px solid rgba(126,200,163,0.3);
+            padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; color: #2d7d46;
+        }
+
+        .warning-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(231,76,60,0.08); border: 1px solid rgba(231,76,60,0.25);
+            padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; color: #c0392b;
+        }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(126,200,163,0.3);
+        }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126,200,163,0.4); }
+
+        .nav-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(253,245,230,0.85); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+        }
+
+        .stat-box {
+            background: white; border-radius: 16px; padding: 20px; text-align: center;
+            border: 1px solid rgba(126,200,163,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+        .stat-box .number {
+            font-size: 1.8rem; font-weight: 900;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .stat-box .label { font-size: 0.75rem; color: #8a9a8a; margin-top: 4px; }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 45vh; min-height: 320px; }
+            .hero-content { bottom: 5%; }
+            .route-step { padding: 12px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16">
+                <a href="../index.html" class="flex items-center gap-2 text-emerald-800 font-bold text-sm sm:text-base">
+                    <i data-lucide="leaf" class="w-5 h-5 text-emerald-500"></i>
+                    <span>九州·夏日物语</span>
+                </a>
+                <a href="../index.html" class="text-sm text-emerald-600 hover:text-emerald-800 transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> 返回主页
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">⛰️ 乌帽子岳</h1>
+            <p class="hero-subtitle">Eboshidake · 海拔 1337m · 火山绝景环线</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto -mt-16">
+        <div class="glass-card p-6 sm:p-10">
+            <!-- Core Stats -->
+            <div class="grid grid-cols-3 gap-4 mb-8">
+                <div class="stat-box">
+                    <div class="number">3.4</div>
+                    <div class="label">总距离 (km)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">234</div>
+                    <div class="label">累计爬升 (m)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">2h</div>
+                    <div class="label">标准耗时</div>
+                </div>
+            </div>
+
+            <!-- ⚠️ Equipment Warning -->
+            <div class="mb-8 p-5 bg-red-50 rounded-xl border border-red-200">
+                <div class="flex items-start gap-3">
+                    <span class="text-2xl">⚠️</span>
+                    <div>
+                        <div class="font-semibold text-red-700 mb-2 text-lg">装备严正建议</div>
+                        <ul class="text-sm text-red-800 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <span>🥾</span>
+                                <span><strong>强烈建议穿着防滑鞋</strong>（登山鞋/越野跑鞋）—— 火山灰沉积的"黑土"极易打滑！</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span>🏏</span>
+                                <span><strong>非常建议携带登山杖</strong> —— 下坡路段尤其需要稳住重心。</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span>💨</span>
+                                <span><strong>棱线风大</strong>，需做好防风防晒，备足 1 升饮水。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Title -->
+            <h2 class="section-title"><i data-lucide="signpost" class="inline-block w-5 h-5 mr-2 text-emerald-500" style="display:inline;vertical-align:middle;"></i>游玩路线 · 逆时针环线</h2>
+            <p class="text-gray-500 text-sm mb-6">从草千里停车场出发，逆时针环绕乌帽子岳</p>
+
+            <div class="space-y-4">
+                <div class="route-step">
+                    <div class="route-step-number">1</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">穿越草千里（15 分钟）</div>
+                        <div class="text-sm text-gray-600 mt-1">从停车场出发，绕过大水潭右侧直奔山脚。草千里是一片广阔的草原牧场，夏季绿草如茵，远处阿苏中岳火山口白烟袅袅，景色壮阔。</div>
+                    </div>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-number">2</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">东侧山脊上山（50 分钟）</div>
+                        <div class="text-sm text-gray-600 mt-1">穿过灌木丛登上山脊线，俯瞰草千里圆盘和阿苏谷。这一段是全程爬升最集中的路段，但视野随着海拔升高逐渐开阔，每一步都值得。</div>
+                    </div>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-number">3</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">登顶乌帽子岳（海拔 1337m）</div>
+                        <div class="text-sm text-gray-600 mt-1">站在山顶，近距离以<strong>"上帝视角"</strong>直面中岳活火山口的滚滚白烟！这是整条路线的高潮——脚下是活跃的火山口，眼前是阿苏五岳的壮丽全景，震撼无比。</div>
+                    </div>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-number">4</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">西侧下撤（45 分钟）</div>
+                        <div class="text-sm text-gray-600 mt-1">沿着较陡的西侧步道一路下撤。⚠️ <strong>使用登山杖稳住重心</strong>，火山灰土质在陡坡上尤其滑。下撤途中回望山顶，别有一番成就感。最终返回草千里停车场。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="mt-8 p-5 bg-amber-50 rounded-xl border border-amber-200">
+                <div class="flex items-start gap-3">
+                    <span class="text-xl">🎒</span>
+                    <div>
+                        <div class="font-semibold text-amber-800 mb-1">行前准备清单</div>
+                        <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                            <li>登山鞋/越野跑鞋（必备）</li>
+                            <li>登山杖（强烈推荐）</li>
+                            <li>防风外套（山脊风大）</li>
+                            <li>防晒霜 + 帽子（无树荫遮挡）</li>
+                            <li>至少 1L 饮水（无补给点）</li>
+                            <li>简易路餐/能量棒</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-10 text-center">
+                <a href="../index.html" class="back-btn">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    返回主页
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-16 footer-gradient text-white" style="background: linear-gradient(135deg, #1a3a2a, #2d5a3a);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+            <p class="text-emerald-200 text-sm">© 2026 九州夏日之旅 · 乌帽子岳硬核徒步指南</p>
+            <a href="../index.html" class="text-emerald-300 hover:text-white text-xs mt-2 inline-block transition-colors">← 返回九州夏日之旅主页</a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

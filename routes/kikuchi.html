@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菊池溪谷 (Kikuchi Gorge) — 绝佳的避暑与森林浴</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #FDF5E6; color: #2d3436; line-height: 1.8; overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F0F8FF; }
+        ::-webkit-scrollbar-thumb { background: #a8d5ba; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7ec8a3; }
+
+        .hero-section {
+            position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden;
+            background: linear-gradient(135deg, #d4edda 0%, #c8e6c9 30%, #a5d6a7 60%, #81c784 100%);
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 50%, rgba(253,245,230,0.9) 100%);
+        }
+        .hero-content {
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+            text-align: center; width: 90%; max-width: 800px; z-index: 10;
+        }
+        .hero-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.8rem,5vw,3.2rem); font-weight: 700;
+            color: white; text-shadow: 0 2px 20px rgba(0,0,0,0.4); line-height: 1.3; margin-bottom: 8px;
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem,2vw,1.1rem); color: rgba(255,255,255,0.9); font-weight: 300;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+            display: inline-block; padding: 6px 20px; border-radius: 30px;
+        }
+
+        .glass-card {
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8); border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.4rem,3.5vw,2rem); font-weight: 700;
+            color: #1a3a2a; position: relative; display: inline-block; margin-bottom: 12px;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 60%; height: 3px;
+            background: linear-gradient(90deg, #7ec8a3, transparent); border-radius: 2px;
+        }
+
+        .route-step {
+            display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px;
+            border-radius: 16px; background: rgba(255,255,255,0.5); border: 1px solid rgba(126,200,163,0.15);
+            transition: all 0.3s ease;
+        }
+        .route-step:hover { background: rgba(255,255,255,0.9); border-color: rgba(126,200,163,0.3); transform: translateX(4px); }
+        .route-step-number {
+            width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #7ec8a3, #5cb85c);
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px;
+        }
+
+        .info-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(126,200,163,0.1); border: 1px solid rgba(126,200,163,0.3);
+            padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; color: #2d7d46;
+        }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(126,200,163,0.3);
+        }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126,200,163,0.4); }
+
+        .nav-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(253,245,230,0.85); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 45vh; min-height: 320px; }
+            .hero-content { bottom: 5%; }
+            .route-step { padding: 12px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16">
+                <a href="../index.html" class="flex items-center gap-2 text-emerald-800 font-bold text-sm sm:text-base">
+                    <i data-lucide="leaf" class="w-5 h-5 text-emerald-500"></i>
+                    <span>九州·夏日物语</span>
+                </a>
+                <a href="../index.html" class="text-sm text-emerald-600 hover:text-emerald-800 transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> 返回主页
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">🌿 菊池溪谷</h1>
+            <p class="hero-subtitle">Kikuchi Gorge · 绝佳的避暑与森林浴</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto -mt-16">
+        <div class="glass-card p-6 sm:p-10">
+            <!-- Quick Info -->
+            <div class="flex flex-wrap gap-3 mb-8">
+                <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 第一停车场 / 游客中心旁</span>
+                <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 约 1.5 小时（夏天天然空调）</span>
+                <span class="info-badge"><i data-lucide="footprints" class="w-4 h-4"></i> 全程约 2 公里</span>
+            </div>
+
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                菊池溪谷位于熊本县北部，是菊池川上游被原始森林环绕的溪谷秘境。即使在盛夏，溪谷内温度也比外界低 5-8°C，是名副其实的"天然空调"。清澈的溪流、青苔覆盖的岩石、以及层层叠叠的瀑布，构成了一幅绝美的山水画卷。
+            </p>
+
+            <!-- Route Title -->
+            <h2 class="section-title"><i data-lucide="signpost" class="inline-block w-5 h-5 mr-2 text-emerald-500" style="display:inline;vertical-align:middle;"></i>推荐游玩路线</h2>
+            <p class="text-gray-500 text-sm mb-6">整周路线 · 轻松漫步 · 约 2 公里</p>
+
+            <div class="space-y-4">
+                <div class="route-step">
+                    <div class="route-step-number">1</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">入口出发</div>
+                        <div class="text-sm text-gray-600 mt-1">从第一停车场旁的游客中心出发，沿着溪流步道缓步前行，耳边是潺潺水声与鸟鸣。</div>
+                    </div>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-number">2</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">黎明瀑布（绝佳合影位）</div>
+                        <div class="text-sm text-gray-600 mt-1">步道第一个精华景点。阳光透过树梢洒在瀑布上，水雾中常能看到彩虹。这里是全家合影的最佳位置！</div>
+                    </div>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-number">3</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">龙渊与红叶濑（青苔绝景）</div>
+                        <div class="text-sm text-gray-600 mt-1">继续深入，溪谷在此处变得开阔。龙渊的深潭碧绿见底，红叶濑两岸的青苔覆盖着岩石，宛如绿绒毯，是摄影爱好者的天堂。</div>
+                    </div>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-number">4</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">折返点：广河原（宽阔溪流休整）</div>
+                        <div class="text-sm text-gray-600 mt-1">到达广河原，溪流在此变得宽阔平缓。可以在溪边的岩石上稍作休整，享受森林浴的宁静时光。</div>
+                    </div>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-number">5</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">跨过溪流走"九州自然步道"轻松返回入口</div>
+                        <div class="text-sm text-gray-600 mt-1">从广河原跨过溪流，踏上"九州自然步道"返回。这条步道穿行于森林之中，与去程不同的视角欣赏溪谷美景，轻松愉快地完成环线。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="mt-8 p-5 bg-emerald-50 rounded-xl border border-emerald-100">
+                <div class="flex items-start gap-3">
+                    <span class="text-xl">💡</span>
+                    <div>
+                        <div class="font-semibold text-emerald-800 mb-1">小贴士</div>
+                        <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                            <li>建议穿防滑鞋，溪边岩石可能湿滑</li>
+                            <li>夏季蚊虫较多，建议携带防蚊喷雾</li>
+                            <li>步道全程树荫覆盖，但建议仍做好防晒</li>
+                            <li>停车场附近有洗手间和自动贩卖机</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-10 text-center">
+                <a href="../index.html" class="back-btn">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    返回主页
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-16 footer-gradient text-white" style="background: linear-gradient(135deg, #1a3a2a, #2d5a3a);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+            <p class="text-emerald-200 text-sm">© 2026 九州夏日之旅 · 菊池溪谷详细指南</p>
+            <a href="../index.html" class="text-emerald-300 hover:text-white text-xs mt-2 inline-block transition-colors">← 返回九州夏日之旅主页</a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
