@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东京巨蛋城极致心跳与夏夜花火大会 —— Tokyo Dome City & Fireworks Festival</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #FDF5E6; color: #2d3436; line-height: 1.8; overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F0F8FF; }
+        ::-webkit-scrollbar-thumb { background: #a8d5ba; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7ec8a3; }
+
+        .hero-section {
+            position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden;
+            background: linear-gradient(135deg, #0c0c1d 0%, #1a1a3e 30%, #2d1b69 60%, #e94560 100%);
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(253,245,230,0.9) 100%);
+        }
+        .hero-content {
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+            text-align: center; width: 90%; max-width: 800px; z-index: 10;
+        }
+        .hero-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.8rem,5vw,3.2rem); font-weight: 700;
+            color: white; text-shadow: 0 2px 20px rgba(0,0,0,0.4); line-height: 1.3; margin-bottom: 8px;
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem,2vw,1.1rem); color: rgba(255,255,255,0.9); font-weight: 300;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+            display: inline-block; padding: 6px 20px; border-radius: 30px;
+        }
+
+        .glass-card {
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8); border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.4rem,3.5vw,2rem); font-weight: 700;
+            color: #1a3a2a; position: relative; display: inline-block; margin-bottom: 12px;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 60%; height: 3px;
+            background: linear-gradient(90deg, #7ec8a3, transparent); border-radius: 2px;
+        }
+
+        .spot-card {
+            border-radius: 16px; overflow: hidden; background: white;
+            border: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .spot-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .spot-card-header {
+            padding: 20px 24px 12px; display: flex; align-items: center; gap: 14px;
+            border-bottom: 1px solid rgba(126,200,163,0.1);
+        }
+        .spot-card-icon {
+            width: 44px; height: 44px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;
+        }
+        .spot-card-body { padding: 16px 24px 24px; }
+
+        .info-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(126,200,163,0.1); border: 1px solid rgba(126,200,163,0.3);
+            padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; color: #2d7d46;
+        }
+
+        .alert-box {
+            border-radius: 14px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px;
+        }
+        .alert-box.warning { background: #fef9e7; border: 1px solid #f9e79f; }
+        .alert-box.info { background: #eaf2f8; border: 1px solid #aed6f1; }
+        .alert-box.success { background: #e8f8e8; border: 1px solid #a9dfbf; }
+        .alert-box.danger { background: #fde8e8; border: 1px solid #f5b7b1; }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(126,200,163,0.3);
+        }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126,200,163,0.4); }
+
+        .nav-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(253,245,230,0.85); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+        }
+
+        .step-card {
+            border-radius: 16px; background: white;
+            border: 1px solid rgba(126,200,163,0.15); overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04); transition: all 0.3s ease;
+        }
+        .step-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .step-number {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; flex-shrink: 0;
+        }
+
+        .transport-node {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px; border-radius: 12px;
+            background: rgba(255,255,255,0.6); border: 1px solid rgba(126,200,163,0.15);
+        }
+        .transport-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+        }
+
+        .fireworks-tip {
+            border-radius: 14px; padding: 18px 22px;
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border: 1px solid #ce93d8;
+            display: flex; align-items: flex-start; gap: 14px;
+        }
+        .fireworks-tip-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: #ce93d8; display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; flex-shrink: 0;
+        }
+
+        .prohibited-box {
+            border-radius: 14px; padding: 16px 20px;
+            background: linear-gradient(135deg, #fde8e8, #fce4e4);
+            border: 2px solid #e74c3c;
+            display: flex; align-items: flex-start; gap: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 45vh; min-height: 320px; }
+            .hero-content { bottom: 5%; }
+            .spot-card-header { padding: 16px 18px 10px; }
+            .spot-card-body { padding: 12px 18px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16">
+                <a href="../index.html" class="flex items-center gap-2 text-emerald-800 font-bold text-sm sm:text-base">
+                    <i data-lucide="leaf" class="w-5 h-5 text-emerald-500"></i>
+                    <span>九州·夏日物语</span>
+                </a>
+                <a href="../index.html" class="text-sm text-emerald-600 hover:text-emerald-800 transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> 返回主页
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">🎢🎆 东京巨蛋城极致心跳与夏夜花火</h1>
+            <p class="hero-subtitle">Thunder Dolphin · GEOPOLIS 赛博空间 · 隅田川花火大会</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto -mt-16">
+        <div class="glass-card p-6 sm:p-10">
+            <!-- Quick Info -->
+            <div class="flex flex-wrap gap-3 mb-8">
+                <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 东京巨蛋城 → 花火大会会场</span>
+                <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 全天行程 10:00 - 20:30+</span>
+                <span class="info-badge"><i data-lucide="train" class="w-4 h-4"></i> 电车 + 步行</span>
+            </div>
+
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Day 7 是本次旅程的最后一个完整游玩日。白天在东京巨蛋城挑战刺激的过山车与最新升级鬼屋，转战 GEOPOLIS 地下赛博空间畅玩室内光影项目；傍晚转场前往花火大会会场，在夏夜凉风中欣赏上万发璀璨花火，为这次东京之旅画上最浪漫的句号。
+            </p>
+
+            <!-- ===== Step 1: 东京巨蛋城 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">1</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">东京巨蛋城 (Tokyo Dome City) 极致心跳</div>
+                        <div class="text-sm text-gray-500">Thunder Dolphin · 鬼屋 · GEOPOLIS 赛博空间</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 東京都文京区後楽1-3-61</span>
+                        <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 10:00 - 16:30</span>
+                        <span class="info-badge"><i data-lucide="zap" class="w-4 h-4"></i> Ride 5 / 一日通票</span>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        东京巨蛋城是位于东京市中心的综合娱乐园区，拥有室外过山车、鬼屋、室内游乐场等多种设施。全天畅玩攻略如下：
+                    </p>
+
+                    <!-- 项目介绍 -->
+                    <div class="grid sm:grid-cols-2 gap-3 mt-4">
+                        <div class="p-4 rounded-xl bg-white border border-emerald-100">
+                            <div class="text-2xl mb-2">🎢</div>
+                            <div class="font-semibold text-sm text-gray-800">Thunder Dolphin (雷霆海豚)</div>
+                            <div class="text-xs text-gray-500 mt-1">东京巨蛋城标志性室外过山车，从巨蛋建筑中穿梭而过，最高时速 130km/h，是必刷的经典项目。</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white border border-emerald-100">
+                            <div class="text-2xl mb-2">👻</div>
+                            <div class="font-semibold text-sm text-gray-800">鬼屋《黑暗婚礼：蠢家族》</div>
+                            <div class="text-xs text-gray-500 mt-1">2026 最新升级版鬼屋，以诡异婚礼为主题，沉浸式恐怖体验。适合全家一起挑战！</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white border border-emerald-100">
+                            <div class="text-2xl mb-2">🎮</div>
+                            <div class="font-semibold text-sm text-gray-800">GEOPOLIS 地下赛博空间</div>
+                            <div class="text-xs text-gray-500 mt-1">全空调覆盖的室内游乐区，包含光影双向过山车 (BACK DAAAN) 与激光特工潜入解谜 (LASER MISSION)，是午后避暑的最佳选择。</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white border border-emerald-100">
+                            <div class="text-2xl mb-2">🔄</div>
+                            <div class="font-semibold text-sm text-gray-800">BACK DAAAN (室内过山车)</div>
+                            <div class="text-xs text-gray-500 mt-1">室内光影双向过山车，结合灯光特效与倒行体验，刺激又凉爽，适合反复乘坐。</div>
+                        </div>
+                    </div>
+
+                    <!-- 购票提示 -->
+                    <div class="alert-box info mt-4">
+                        <span class="text-xl">🎫</span>
+                        <div>
+                            <div class="font-semibold text-blue-800 text-sm">门票与快速券实操</div>
+                            <div class="text-xs text-blue-700 mt-1">
+                                <strong>提前一天 (7/24)：</strong>在线上买好 Ride 5 (任选5个项目) 或一日通票。<br>
+                                <strong>游玩当天 (7/25)：</strong>进园后第一时间分头前往热门项目入口处的专属自动售票机，单独购买当天的 Skip Pass (快速通行券)，确保热门项目不排队。
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 午餐提示 -->
+                    <div class="alert-box success mt-3">
+                        <span class="text-xl">🍔</span>
+                        <div>
+                            <div class="font-semibold text-green-800 text-sm">中午避暑平价速吃</div>
+                            <div class="text-xs text-green-700 mt-1">
+                                推荐前往 <strong>Attractions 1F 的 Go-Fun 美食广场</strong>（冷气充足，选择丰富，适合全家各取所需）或巨蛋 22 号门旁的 <strong>Shake Shack 汉堡</strong> 快速补充体力。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 2: 转场与物资采购 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">2</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">养精蓄锐与转场</div>
+                        <div class="text-sm text-gray-500">巨蛋城 → 花火大会会场 · 便利店采购</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="transport-node mb-4">
+                        <div class="transport-icon" style="background:#e8f4fd;">🚇</div>
+                        <div>
+                            <div class="font-semibold text-sm text-gray-700">搭乘电车前往花火大会会场</div>
+                            <div class="text-xs text-gray-500">从巨蛋城出发，约 16:30 开始转场，沿途在便利店采购傍晚观览所需的物资与便当</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        下午 16:30 左右结束巨蛋城的游玩，搭乘电车前往花火大会会场。沿途在便利店 (如 7-Eleven、FamilyMart、Lawson) 采购晚餐所需的便当、饭团、零食和饮品。建议提前查好花火大会会场的交通路线和入场时间。
+                    </p>
+                </div>
+            </div>
+
+            <!-- ===== Step 3: 花火大会 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">3</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">夏夜花火大会 · 东京盛夏浪漫</div>
+                        <div class="text-sm text-gray-500">18:30 - 20:30 · 观览席</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 18:30 - 20:30</span>
+                        <span class="info-badge"><i data-lucide="sun" class="w-4 h-4"></i> 夏夜凉风 · 自带美食</span>
+                        <span class="info-badge"><i data-lucide="sparkles" class="w-4 h-4"></i> 上万发璀璨花火</span>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        抵达花火大会观览席后，在夏夜凉风中铺好垫子，享用从便利店采购的美食。欣赏上万发璀璨花火在夜空绽放，体验最原汁原味的东京盛夏浪漫。这是本次旅程最完美的收官体验。
+                    </p>
+
+                    <!-- 带入禁忌 -->
+                    <div class="prohibited-box mt-4">
+                        <span class="text-2xl">🚫</span>
+                        <div>
+                            <div class="font-semibold text-red-800 text-sm">花火大会带入绝对禁忌</div>
+                            <div class="text-xs text-red-700 mt-1">
+                                根据主办方票根要求：<br>
+                                ✅ <strong>允许带入：</strong>饭团、便当、零食以及 PET 塑料瓶装/纸盒装饮品。<br>
+                                ❌ <strong>严禁带入：</strong>任何玻璃瓶、易拉罐类容器（入场会翻包检查，查出会被没收或强制倒掉），以及任何酒精饮料与危险品。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 4: 返程 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">4</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">有序离场 · 返回两国</div>
+                        <div class="text-sm text-gray-500">20:30 以后 · 电车直达</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="transport-node mb-4">
+                        <div class="transport-icon" style="background:#e8f4fd;">🚇</div>
+                        <div>
+                            <div class="font-semibold text-sm text-gray-700">搭乘电车返回两国 (両国)</div>
+                            <div class="text-xs text-gray-500">顺着人流有序离场，搭乘电车一站式舒适返回家中休息</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        花火大会结束后，顺着人流有序离场，搭乘电车返回两国站。出站后步行即可舒适返回家中，结束这充实而精彩的一天。
+                    </p>
+                    <div class="alert-box success mt-4">
+                        <span class="text-xl">🏠</span>
+                        <div>
+                            <div class="font-semibold text-green-800 text-sm">旅程完美收官</div>
+                            <div class="text-xs text-green-700 mt-1">从白天巨蛋城的极致心跳，到夜晚花火大会的璀璨浪漫——Day 7 为这次东京之旅画上了最完美的句号。带着满满的回忆，舒适返回两国家中。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-10 text-center">
+                <a href="../index.html" class="back-btn">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    返回主页
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-16 footer-gradient text-white" style="background: linear-gradient(135deg, #0c0c1d, #1a1a3e);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+            <p class="text-emerald-200 text-sm">© 2026 九州夏日之旅 · 东京巨蛋城极致心跳与夏夜花火大会指南</p>
+            <a href="../index.html" class="text-emerald-300 hover:text-white text-xs mt-2 inline-block transition-colors">← 返回九州夏日之旅主页</a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
