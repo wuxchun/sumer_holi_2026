@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东京塔数字狂欢与六本木绝品寿司 —— RED° TOKYO TOWER & SUSHI TOKYO TEN</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #FDF5E6; color: #2d3436; line-height: 1.8; overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F0F8FF; }
+        ::-webkit-scrollbar-thumb { background: #a8d5ba; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7ec8a3; }
+
+        .hero-section {
+            position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #e94560 100%);
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(253,245,230,0.9) 100%);
+        }
+        .hero-content {
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+            text-align: center; width: 90%; max-width: 800px; z-index: 10;
+        }
+        .hero-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.8rem,5vw,3.2rem); font-weight: 700;
+            color: white; text-shadow: 0 2px 20px rgba(0,0,0,0.4); line-height: 1.3; margin-bottom: 8px;
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem,2vw,1.1rem); color: rgba(255,255,255,0.9); font-weight: 300;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+            display: inline-block; padding: 6px 20px; border-radius: 30px;
+        }
+
+        .glass-card {
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8); border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif; font-size: clamp(1.4rem,3.5vw,2rem); font-weight: 700;
+            color: #1a3a2a; position: relative; display: inline-block; margin-bottom: 12px;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 60%; height: 3px;
+            background: linear-gradient(90deg, #7ec8a3, transparent); border-radius: 2px;
+        }
+
+        .spot-card {
+            border-radius: 16px; overflow: hidden; background: white;
+            border: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .spot-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .spot-card-header {
+            padding: 20px 24px 12px; display: flex; align-items: center; gap: 14px;
+            border-bottom: 1px solid rgba(126,200,163,0.1);
+        }
+        .spot-card-icon {
+            width: 44px; height: 44px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;
+        }
+        .spot-card-body { padding: 16px 24px 24px; }
+
+        .info-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(126,200,163,0.1); border: 1px solid rgba(126,200,163,0.3);
+            padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; color: #2d7d46;
+        }
+
+        .alert-box {
+            border-radius: 14px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px;
+        }
+        .alert-box.warning { background: #fef9e7; border: 1px solid #f9e79f; }
+        .alert-box.info { background: #eaf2f8; border: 1px solid #aed6f1; }
+        .alert-box.success { background: #e8f8e8; border: 1px solid #a9dfbf; }
+        .alert-box.danger { background: #fde8e8; border: 1px solid #f5b7b1; }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(126,200,163,0.3);
+        }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126,200,163,0.4); }
+
+        .nav-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(253,245,230,0.85); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(126,200,163,0.15); transition: all 0.3s ease;
+        }
+
+        .step-card {
+            border-radius: 16px; background: white;
+            border: 1px solid rgba(126,200,163,0.15); overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04); transition: all 0.3s ease;
+        }
+        .step-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .step-number {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, #7ec8a3, #5cb85c); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; flex-shrink: 0;
+        }
+
+        .transport-node {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px; border-radius: 12px;
+            background: rgba(255,255,255,0.6); border: 1px solid rgba(126,200,163,0.15);
+        }
+        .transport-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+        }
+
+        .sushi-tip {
+            border-radius: 14px; padding: 18px 22px;
+            background: linear-gradient(135deg, #fff8e1, #fff3cd);
+            border: 1px solid #ffd54f;
+            display: flex; align-items: flex-start; gap: 14px;
+        }
+        .sushi-tip-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: #ffd54f; display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 45vh; min-height: 320px; }
+            .hero-content { bottom: 5%; }
+            .spot-card-header { padding: 16px 18px 10px; }
+            .spot-card-body { padding: 12px 18px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16">
+                <a href="../index.html" class="flex items-center gap-2 text-emerald-800 font-bold text-sm sm:text-base">
+                    <i data-lucide="leaf" class="w-5 h-5 text-emerald-500"></i>
+                    <span>九州·夏日物语</span>
+                </a>
+                <a href="../index.html" class="text-sm text-emerald-600 hover:text-emerald-800 transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> 返回主页
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">🎮🍣 东京塔数字狂欢与绝品寿司</h1>
+            <p class="hero-subtitle">RED° TOKYO TOWER · 六本木东京中城散步 · SUSHI TOKYO TEN 江户前 Omakase</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto -mt-16">
+        <div class="glass-card p-6 sm:p-10">
+            <!-- Quick Info -->
+            <div class="flex flex-wrap gap-3 mb-8">
+                <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 东京塔 → 六本木东京中城</span>
+                <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 全天行程 10:00 - 20:00+</span>
+                <span class="info-badge"><i data-lucide="train" class="w-4 h-4"></i> 打车 + 都营大江户线</span>
+            </div>
+
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Day 6 是回到东京后的第一个完整自由日。上午在东京塔的 RED° TOKYO TOWER 尽情畅玩数字电竞体验，下午转移至六本木东京中城享受设计美学与城市下午茶，傍晚则迎来本次旅程的压轴大戏——在 <strong>SUSHI TOKYO TEN (六本木店)</strong> 享用高性价比的正统江户前板前寿司 Omakase。最后搭乘大江户线无需换乘，一站式舒适返回两国。
+            </p>
+
+            <!-- ===== Step 1: RED° TOKYO TOWER ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">1</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">RED° TOKYO TOWER 数字电竞狂欢</div>
+                        <div class="text-sm text-gray-500">东京塔 (東京タワー) · 全日护照畅玩</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 東京都港区芝公園4-2-8</span>
+                        <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 10:00 - 15:00</span>
+                        <span class="info-badge"><i data-lucide="ticket" class="w-4 h-4"></i> 全日护照推荐</span>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        RED° TOKYO TOWER 是东京塔内全新升级的数字娱乐综合体，融合了电竞、VR、投影互动等前沿科技体验。建议购买<strong>全日护照 (1 Day Pass)</strong>，可以无限次进出所有区域。
+                    </p>
+                    <div class="space-y-3 mt-4">
+                        <div class="alert-box success">
+                            <span class="text-xl">🎯</span>
+                            <div>
+                                <div class="font-semibold text-green-800 text-sm">错峰战术三步走</div>
+                                <div class="text-xs text-green-700 mt-1">
+                                    <strong>上午 (10:00-12:00)：</strong>抵达后直奔最热门的 VR 体验区和电竞区，趁人少抢刷热门项目。<br>
+                                    <strong>中午 (12:00-13:00)：</strong>在塔内或周边平价餐厅快速解决午餐，不浪费游玩时间。<br>
+                                    <strong>下午 (13:00-15:00)：</strong>利用全日护照优势，无限二刷喜欢的项目，或探索冷门区域。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 2: 六本木东京中城散步 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">2</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">六本木东京中城 (東京ミッドタウン) 美学散步</div>
+                        <div class="text-sm text-gray-500">打车转移 · 设计街区 · 下午茶时光</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="transport-node mb-4">
+                        <div class="transport-icon" style="background:#fef3e2;">🚕</div>
+                        <div>
+                            <div class="font-semibold text-sm text-gray-700">打车转移（东京塔 → 六本木东京中城）</div>
+                            <div class="text-xs text-gray-500">约 10-15 分钟车程，费用约 1,500-2,000 日元</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        东京中城是六本木最具设计感的复合商业设施，汇集了高端设计商店、美术馆和精致的餐饮选择。下午的时光可以这样度过：
+                    </p>
+                    <div class="grid sm:grid-cols-2 gap-3 mt-4">
+                        <div class="p-4 rounded-xl bg-white border border-emerald-100">
+                            <div class="text-2xl mb-2">🏛️</div>
+                            <div class="font-semibold text-sm text-gray-800">21_21 DESIGN SIGHT</div>
+                            <div class="text-xs text-gray-500 mt-1">由安藤忠雄设计的知名设计博物馆，常设展览极具创意。从东京中城步行约 5 分钟可达。</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white border border-emerald-100">
+                            <div class="text-2xl mb-2">☕</div>
+                            <div class="font-semibold text-sm text-gray-800">城市下午茶</div>
+                            <div class="text-xs text-gray-500 mt-1">中城内有多家高品质咖啡馆和甜品店，可以在充满设计感的空间中享受悠闲的下午茶时光。</div>
+                        </div>
+                    </div>
+                    <div class="alert-box info mt-4">
+                        <span class="text-xl">💡</span>
+                        <div>
+                            <div class="font-semibold text-blue-800 text-sm">散步推荐路线</div>
+                            <div class="text-xs text-blue-700 mt-1">从东京中城出发 → 沿桧町公园散步 → 顺路参观 21_21 DESIGN SIGHT → 返回中城逛街 → 在楼下准备前往 SUSHI TOKYO TEN。整个区域步行友好，充满设计感，非常适合拍照打卡。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 3: SUSHI TOKYO TEN 晚宴 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">3</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">SUSHI TOKYO TEN (六本木店) 饕餮盛宴</div>
+                        <div class="text-sm text-gray-500">东京中城一楼 · 江户前板前 Omakase</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <span class="info-badge"><i data-lucide="map-pin" class="w-4 h-4"></i> 東京ミッドタウン ガレリア 1F</span>
+                        <span class="info-badge"><i data-lucide="clock" class="w-4 h-4"></i> 18:00 - 20:00</span>
+                        <span class="info-badge" style="background:#fde8e8; border-color:#f5b7b1; color:#c0392b;"><i data-lucide="alert-triangle" class="w-4 h-4"></i> 需提早 4 周预约</span>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        <strong>SUSHI TOKYO TEN (鮨 東京テン)</strong> 是东京备受好评的高性价比江户前寿司名店，位于东京中城一楼。提供正统的板前 Omakase 体验，由经验丰富的大将亲自操刀，精选当季最优质的鱼料，呈现 20 多道精致的江户前寿司。在六本木这样的黄金地段，能以极具竞争力的价格享受到如此高品质的板前寿司，实属难得。
+                    </p>
+
+                    <!-- 就餐提示 -->
+                    <div class="space-y-3 mt-4">
+                        <div class="font-bold text-gray-700 text-sm flex items-center gap-2">
+                            <span>📋</span> 就餐备忘录
+                        </div>
+
+                        <div class="sushi-tip">
+                            <div class="sushi-tip-icon">📖</div>
+                            <div>
+                                <div class="font-semibold text-amber-800 text-sm">友好度极高 · 语言无障碍</div>
+                                <div class="text-xs text-amber-700 mt-1">店内配有图文并茂的外语鱼料说明卡片，每道寿司上桌时都能清楚了解鱼料名称、产地和推荐吃法。即使不会日语也完全不用担心，轻松享受正宗 Omakase 体验。</div>
+                            </div>
+                        </div>
+
+                        <div class="sushi-tip">
+                            <div class="sushi-tip-icon">🍣</div>
+                            <div>
+                                <div class="font-semibold text-amber-800 text-sm">吃法规矩 · 直接入口</div>
+                                <div class="text-xs text-amber-700 mt-1">大将捏好寿司时，已经刷好了特调酱汁 (ツメ) 或撒上了盐 (塩)。上桌后直接一口吃掉即可，<strong>无需自己蘸酱油</strong>。这是品尝江户前寿司最地道的吃法，能完美感受大将调配的平衡风味。</div>
+                            </div>
+                        </div>
+
+                        <div class="sushi-tip">
+                            <div class="sushi-tip-icon">🚇</div>
+                            <div>
+                                <div class="font-semibold text-amber-800 text-sm">丝滑返程 · 直达两国</div>
+                                <div class="text-xs text-amber-700 mt-1">餐厅位于东京中城一楼，出餐厅步行 2 分钟即是<strong>六本木站 (六本木駅)</strong>。搭乘都营大江户线 (都営大江戸線) 无需换乘，约 20 分钟即可直达<strong>两国站 (両国駅)</strong>，完美规避晚高峰的折腾，舒适返回家中休息。</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert-box danger mt-4">
+                        <span class="text-xl">🚨</span>
+                        <div>
+                            <div class="font-semibold text-red-800 text-sm">预约提醒</div>
+                            <div class="text-xs text-red-700 mt-1">
+                                SUSHI TOKYO TEN 人气极高，<strong>必须提前 4 周在 TableCheck 官网预约</strong>。建议尽早确定日期并完成预约，以免错过这次难得的板前寿司体验。<br>
+                                <a href="https://www.tablecheck.com" target="_blank" class="underline font-medium">TableCheck 预约官网 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Step 4: 返程 ===== -->
+            <div class="step-card mb-6">
+                <div class="spot-card-header">
+                    <div class="step-number">4</div>
+                    <div>
+                        <div class="font-bold text-gray-800 text-lg">丝滑返程 · 大江户线直达两国</div>
+                        <div class="text-sm text-gray-500">无需换乘 · 约 20 分钟</div>
+                    </div>
+                </div>
+                <div class="spot-card-body">
+                    <div class="transport-node mb-4">
+                        <div class="transport-icon" style="background:#e8f4fd;">🚇</div>
+                        <div>
+                            <div class="font-semibold text-sm text-gray-700">都营大江户线 (都営大江戸線)</div>
+                            <div class="text-xs text-gray-500">六本木駅 (E-23) → 両国駅 (E-12) · 约 20 分钟 · 无需换乘</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        晚餐结束后，从六本木站搭乘都营大江户线，一站直达两国站。出站后步行即可舒适返回家中，结束这充实而精彩的一天。大江户线运营至深夜，完全不用担心时间问题。
+                    </p>
+                    <div class="alert-box success mt-4">
+                        <span class="text-xl">🏠</span>
+                        <div>
+                            <div class="font-semibold text-green-800 text-sm">完美收官</div>
+                            <div class="text-xs text-green-700 mt-1">从东京塔的数字狂欢，到六本木的设计美学散步，再到 SUSHI TOKYO TEN 的顶级江户前 Omakase——Day 6 是传统与现代、美食与娱乐完美融合的一天。搭乘大江户线直达两国，为这次东京之旅画上圆满句号。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-10 text-center">
+                <a href="../index.html" class="back-btn">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    返回主页
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-16 footer-gradient text-white" style="background: linear-gradient(135deg, #1a1a2e, #0f3460);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+            <p class="text-emerald-200 text-sm">© 2026 九州夏日之旅 · 东京塔数字狂欢与六本木绝品寿司指南</p>
+            <a href="../index.html" class="text-emerald-300 hover:text-white text-xs mt-2 inline-block transition-colors">← 返回九州夏日之旅主页</a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
