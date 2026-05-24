@@ -269,7 +269,7 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <i data-lucide="calendar" class="inline-block w-4 h-4 mr-1" style="display:inline;vertical-align:middle;"></i>
-                2026 年盛夏 · 5 天 4 夜
+                2026 年盛夏 · 8 天 7 夜
             </div>
             <h1 class="hero-title">2026 九州·夏日自然探险之旅</h1>
             <p class="hero-subtitle">
@@ -283,8 +283,8 @@
     <section id="overview" class="relative z-10 -mt-16 sm:-mt-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div class="glass-card p-6 sm:p-10">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
-                <div><div class="stat-number">5</div><div class="text-sm text-gray-500 mt-1">天数</div></div>
-                <div><div class="stat-number">4</div><div class="text-sm text-gray-500 mt-1">住宿夜</div></div>
+                <div><div class="stat-number">8</div><div class="text-sm text-gray-500 mt-1">天数</div></div>
+                <div><div class="stat-number">7</div><div class="text-sm text-gray-500 mt-1">住宿夜</div></div>
                 <div><div class="stat-number">6</div><div class="text-sm text-gray-500 mt-1">目的地</div></div>
                 <div><div class="stat-number">3</div><div class="text-sm text-gray-500 mt-1">交通方式</div></div>
             </div>
@@ -377,7 +377,53 @@
                     <div class="flow-label">Day 5<br>福冈</div>
                     <div class="text-xs text-gray-400 mt-1">空手购物</div>
                 </div>
+                <div class="flex flex-col items-center">
+                    <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                    <div class="flow-connector-label">✈️ 飞行</div>
+                </div>
+                <!-- Day 5-7: 东京 -->
+                <div class="flow-node flex-1">
+                    <div class="flow-icon" style="background:#e8f4fd;">🗼</div>
+                    <div class="flow-label">Day 5-7<br>东京</div>
+                    <div class="text-xs text-gray-400 mt-1">全家同游</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                    <div class="flow-connector-label">🚃 电车</div>
+                </div>
+                <!-- Day 8: 两国 -->
+                <div class="flow-node flex-1">
+                    <div class="flow-icon" style="background:#fde8e8;">🏠</div>
+                    <div class="flow-label">Day 8<br>两国</div>
+                    <div class="text-xs text-gray-400 mt-1">出发返程</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                    <div class="flow-connector-label">🚌 机场巴士</div>
+                </div>
+                <!-- Day 8: 成田机场 -->
+                <div class="flow-node flex-1">
+                    <div class="flow-icon" style="background:#e8f8e8;">✈️</div>
+                    <div class="flow-label">Day 8<br>成田机场 (NRT)</div>
+                    <div class="text-xs text-gray-400 mt-1">搭乘航班</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="flow-connector"><i data-lucide="arrow-right"></i></div>
+                    <div class="flow-connector-label">✈️ 国际线</div>
+                </div>
+                <!-- Day 8: 上海 -->
+                <div class="flow-node flex-1">
+                    <div class="flow-icon" style="background:#fef3e2;">🏙️</div>
+                    <div class="flow-label">Day 8<br>上海 (PVG/SHA)</div>
+                    <div class="text-xs text-gray-400 mt-1">抵达目的地</div>
+                </div>
             </div>
+
+            <!-- 返程备注 -->
+            <div class="mt-4 text-center">
+                <span class="inline-block text-xs text-gray-500 bg-gray-100/80 px-4 py-1.5 rounded-full">（注：仅钟娇与晨骏返程）</span>
+            </div>
+
 
             <!-- 行李物流提示 -->
             <div class="mt-8 pt-6 border-t border-emerald-100/50">
@@ -444,8 +490,42 @@
                 <div class="flex items-center gap-3">
                     <div class="flow-icon !w-10 !h-10 !text-lg" style="background:#fef3e2;">🛍️</div>
                     <div><div class="font-semibold text-sm text-gray-700">Day 5 · 福冈</div><div class="text-xs text-gray-400">空手购物</div></div>
+                    <div class="ml-auto text-emerald-400"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                </div>
+                <div class="text-xs text-gray-400 text-center -my-1">✈️ 飞行</div>
+                <!-- Day 5-7: 东京 -->
+                <div class="flex items-center gap-3">
+                    <div class="flow-icon !w-10 !h-10 !text-lg" style="background:#e8f4fd;">🗼</div>
+                    <div><div class="font-semibold text-sm text-gray-700">Day 5-7 · 东京</div><div class="text-xs text-gray-400">全家同游</div></div>
+                    <div class="ml-auto text-emerald-400"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                </div>
+                <div class="text-xs text-gray-400 text-center -my-1">🚃 电车</div>
+                <!-- Day 8: 两国 -->
+                <div class="flex items-center gap-3">
+                    <div class="flow-icon !w-10 !h-10 !text-lg" style="background:#fde8e8;">🏠</div>
+                    <div><div class="font-semibold text-sm text-gray-700">Day 8 · 两国</div><div class="text-xs text-gray-400">出发返程</div></div>
+                    <div class="ml-auto text-emerald-400"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                </div>
+                <div class="text-xs text-gray-400 text-center -my-1">🚌 机场巴士</div>
+                <!-- Day 8: 成田机场 -->
+                <div class="flex items-center gap-3">
+                    <div class="flow-icon !w-10 !h-10 !text-lg" style="background:#e8f8e8;">✈️</div>
+                    <div><div class="font-semibold text-sm text-gray-700">Day 8 · 成田机场 (NRT)</div><div class="text-xs text-gray-400">搭乘航班</div></div>
+                    <div class="ml-auto text-emerald-400"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                </div>
+                <div class="text-xs text-gray-400 text-center -my-1">✈️ 国际线</div>
+                <!-- Day 8: 上海 -->
+                <div class="flex items-center gap-3">
+                    <div class="flow-icon !w-10 !h-10 !text-lg" style="background:#fef3e2;">🏙️</div>
+                    <div><div class="font-semibold text-sm text-gray-700">Day 8 · 上海 (PVG/SHA)</div><div class="text-xs text-gray-400">抵达目的地</div></div>
                 </div>
             </div>
+
+            <!-- 返程备注 -->
+            <div class="mt-4 text-center">
+                <span class="inline-block text-xs text-gray-500 bg-gray-100/80 px-4 py-1.5 rounded-full">（注：仅钟娇与晨骏返程）</span>
+            </div>
+
             <!-- Mobile luggage tips -->
             <div class="mt-6 pt-4 border-t border-emerald-100/50 space-y-3">
                 <div class="flow-highlight flex items-center gap-3 text-sm">
@@ -464,7 +544,7 @@
     <section id="itinerary" class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto mt-16 sm:mt-24">
         <div class="text-center mb-10 sm:mb-14">
             <h2 class="section-title"><i data-lucide="calendar-check" class="inline-block w-6 h-6 mr-2 text-emerald-500" style="display:inline;vertical-align:middle;"></i>每日行程详解</h2>
-            <p class="section-subtitle">五天四夜的九州自然探险之旅</p>
+            <p class="section-subtitle">八天七夜的九州自然探险之旅</p>
         </div>
         <div class="timeline">
             <!-- Day 1 -->
@@ -609,6 +689,17 @@
                     <strong>18:30 - 20:30：【夏日盛宴】</strong>抵达花火大会观览席。在夏夜凉风中享用自带的美食，欣赏上万发璀璨花火在夜空绽放，体验最原汁原味的东京盛夏浪漫。<br>
                     <strong>20:30 以后：</strong>顺着人流有序离场，搭乘电车一站式舒适返回两国 (両国) 家中休息。<br>
                     <strong>详细攻略：</strong> <a href="./routes/day7.html" target="_blank" class="text-emerald-600 hover:text-emerald-800 underline">点击查看东京巨蛋城实操路书与花火大会观览备忘录</a>
+                </div>
+            </div>
+
+            <!-- Day 8 -->
+            <div class="timeline-item animate-in animate-in-d5">
+                <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+                <div class="timeline-day-badge">DAY 8</div>
+                <div class="timeline-time"><i data-lucide="clock"></i>7月26日（周日）</div>
+                <div class="timeline-title">圆满收官与返程</div>
+                <div class="timeline-desc">
+                    <strong>简要行程：</strong>钟娇与晨骏从两国（両国）出发，前往成田机场搭乘航班返回上海。我将继续留在日本。八天七夜的全家暑期旅行圆满结束。
                 </div>
             </div>
         </div>
@@ -856,7 +947,7 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <div>
                     <div class="flex items-center gap-2 text-white font-bold text-lg mb-4"><i data-lucide="leaf" class="w-6 h-6 text-emerald-300"></i><span>九州·夏日物语</span></div>
-                    <p class="text-emerald-200 text-sm leading-relaxed">一场属于我们仨的九州夏日冒险。阿苏火山、高千穗神话、九重高原、别府温泉——五天四夜，满载回忆。</p>
+                    <p class="text-emerald-200 text-sm leading-relaxed">一场属于我们仨的九州夏日冒险。阿苏火山、高千穗神话、九重高原、别府温泉——八天七夜，满载回忆。</p>
                 </div>
                 <div>
                     <div class="font-semibold text-white mb-4">快速导航</div>
