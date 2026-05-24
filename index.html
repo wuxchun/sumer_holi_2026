@@ -309,10 +309,10 @@
         </div>
 
         <!-- 桌面版横向流程图 -->
-        <div class="hidden md:block glass-card p-8">
-            <div class="flex items-start justify-between gap-2">
+        <div class="hidden md:block glass-card p-8 overflow-x-auto" style="padding-bottom: 1rem;">
+            <div class="flex items-start gap-2" style="min-width: max-content;">
                 <!-- Day 1: 福冈 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#e8f4fd;">✈️</div>
                     <div class="flow-label">Day 1<br>福冈机场</div>
                     <div class="text-xs text-gray-400 mt-1">抵达汇合</div>
@@ -322,7 +322,7 @@
                     <div class="flow-connector-label">新干线</div>
                 </div>
                 <!-- Day 1: 熊本 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#e8f8e8;">🚄</div>
                     <div class="flow-label">Day 1<br>JR 熊本站</div>
                     <div class="text-xs text-gray-400 mt-1">转包车</div>
@@ -332,7 +332,7 @@
                     <div class="flow-connector-label">包车</div>
                 </div>
                 <!-- Day 1-2: 阿苏 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#fef3e2;">🌋</div>
                     <div class="flow-label">Day 1-2<br>阿苏</div>
                     <div class="text-xs text-gray-400 mt-1">温泉旅馆</div>
@@ -342,7 +342,7 @@
                     <div class="flow-connector-label">包车</div>
                 </div>
                 <!-- Day 2: 高千穗 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#e8f4fd;">⛩️</div>
                     <div class="flow-label">Day 2<br>高千穗</div>
                     <div class="text-xs text-gray-400 mt-1">神话之乡</div>
@@ -352,7 +352,7 @@
                     <div class="flow-connector-label">包车</div>
                 </div>
                 <!-- Day 3: 九重 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#e8f8e8;">🏔️</div>
                     <div class="flow-label">Day 3-4<br>九重</div>
                     <div class="text-xs text-gray-400 mt-1">山并公路</div>
@@ -362,7 +362,7 @@
                     <div class="flow-connector-label">JR 慢车</div>
                 </div>
                 <!-- Day 4: 别府 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#fde8e8;">♨️</div>
                     <div class="flow-label">Day 4-5<br>别府</div>
                     <div class="text-xs text-gray-400 mt-1">温泉区</div>
@@ -372,7 +372,7 @@
                     <div class="flow-connector-label">特急</div>
                 </div>
                 <!-- Day 5: 福冈 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#fef3e2;">🛍️</div>
                     <div class="flow-label">Day 5<br>福冈</div>
                     <div class="text-xs text-gray-400 mt-1">空手购物</div>
@@ -382,7 +382,7 @@
                     <div class="flow-connector-label">✈️ 飞行</div>
                 </div>
                 <!-- Day 5-7: 东京 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#e8f4fd;">🗼</div>
                     <div class="flow-label">Day 5-7<br>东京</div>
                     <div class="text-xs text-gray-400 mt-1">全家同游</div>
@@ -392,7 +392,7 @@
                     <div class="flow-connector-label">🚃 电车</div>
                 </div>
                 <!-- Day 8: 两国 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#fde8e8;">🏠</div>
                     <div class="flow-label">Day 8<br>两国</div>
                     <div class="text-xs text-gray-400 mt-1">出发返程</div>
@@ -402,7 +402,7 @@
                     <div class="flow-connector-label">🚌 机场巴士</div>
                 </div>
                 <!-- Day 8: 成田机场 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#e8f8e8;">✈️</div>
                     <div class="flow-label">Day 8<br>成田机场 (NRT)</div>
                     <div class="text-xs text-gray-400 mt-1">搭乘航班</div>
@@ -412,16 +412,15 @@
                     <div class="flow-connector-label">✈️ 国际线</div>
                 </div>
                 <!-- Day 8: 上海 -->
-                <div class="flow-node flex-1">
+                <div class="flow-node" style="min-width: 80px;">
                     <div class="flow-icon" style="background:#fef3e2;">🏙️</div>
                     <div class="flow-label">Day 8<br>上海 (PVG/SHA)</div>
                     <div class="text-xs text-gray-400 mt-1">抵达目的地</div>
+                    <!-- 返程备注：仅钟娇与晨骏返程 -->
+                    <div class="mt-2">
+                        <span class="inline-block text-[0.6rem] text-gray-500 bg-gray-100/80 px-2 py-0.5 rounded-full whitespace-nowrap">（注：仅钟娇与晨骏返程）</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- 返程备注 -->
-            <div class="mt-4 text-center">
-                <span class="inline-block text-xs text-gray-500 bg-gray-100/80 px-4 py-1.5 rounded-full">（注：仅钟娇与晨骏返程）</span>
             </div>
 
 
@@ -517,13 +516,15 @@
                 <!-- Day 8: 上海 -->
                 <div class="flex items-center gap-3">
                     <div class="flow-icon !w-10 !h-10 !text-lg" style="background:#fef3e2;">🏙️</div>
-                    <div><div class="font-semibold text-sm text-gray-700">Day 8 · 上海 (PVG/SHA)</div><div class="text-xs text-gray-400">抵达目的地</div></div>
+                    <div>
+                        <div class="font-semibold text-sm text-gray-700">Day 8 · 上海 (PVG/SHA)</div>
+                        <div class="text-xs text-gray-400">抵达目的地</div>
+                        <!-- 返程备注 -->
+                        <div class="mt-1">
+                            <span class="inline-block text-[0.6rem] text-gray-500 bg-gray-100/80 px-2 py-0.5 rounded-full">（注：仅钟娇与晨骏返程）</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- 返程备注 -->
-            <div class="mt-4 text-center">
-                <span class="inline-block text-xs text-gray-500 bg-gray-100/80 px-4 py-1.5 rounded-full">（注：仅钟娇与晨骏返程）</span>
             </div>
 
             <!-- Mobile luggage tips -->
