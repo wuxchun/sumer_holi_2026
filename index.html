@@ -212,6 +212,41 @@
         }
         .flow-highlight .flow-icon { box-shadow: 0 4px 16px rgba(255,213,79,0.2); }
 
+        .route-card-grid {
+            display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+        }
+        .route-segment-card {
+            background: rgba(255,255,255,0.86); border: 1px solid rgba(126,200,163,0.18);
+            border-radius: 18px; padding: 20px; box-shadow: 0 10px 28px rgba(31,90,58,0.06);
+        }
+        .route-segment-card.kyushu { background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(232,248,232,0.82)); }
+        .route-segment-card.tokyo { background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(232,244,253,0.82)); }
+        .route-segment-card.return { background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,243,205,0.78)); }
+        .route-segment-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .route-segment-icon {
+            width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.72); font-size: 1.3rem; box-shadow: 0 6px 18px rgba(31,90,58,0.07);
+        }
+        .route-segment-title { font-weight: 900; color: #1a3a2a; line-height: 1.3; }
+        .route-segment-subtitle { font-size: 0.74rem; color: #6b8a7a; margin-top: 2px; }
+        .route-step-list { display: flex; flex-wrap: wrap; gap: 7px; }
+        .route-step {
+            display: inline-flex; align-items: center; gap: 5px; min-height: 30px;
+            padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,0.74);
+            border: 1px solid rgba(126,200,163,0.14); color: #405f50; font-size: 0.78rem; font-weight: 700;
+        }
+        .route-step-note {
+            margin-top: 14px; color: #5a6a5a; font-size: 0.82rem; line-height: 1.6;
+            padding-top: 12px; border-top: 1px solid rgba(126,200,163,0.14);
+        }
+        .route-luggage-row {
+            margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;
+        }
+        .route-luggage-card {
+            display: flex; align-items: flex-start; gap: 10px; padding: 13px 14px; border-radius: 14px;
+            background: rgba(255,255,255,0.78); border: 1px solid rgba(255,213,79,0.34); color: #5a5d48;
+        }
+
         .risk-card { background: rgba(255,255,255,0.92); border-radius: 16px; padding: 24px; border-left: 4px solid; transition: all 0.3s ease; box-shadow: 0 7px 22px rgba(31,90,58,0.05); }
         .risk-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(31,90,58,0.09); }
         .risk-card.warning { border-left-color: #f0ad4e; }
@@ -294,6 +329,8 @@
             .budget-mobile { display: grid; gap: 10px; }
             .trip-board { grid-template-columns: 1fr; }
             .trip-card { min-height: auto; }
+            .route-card-grid { grid-template-columns: 1fr; }
+            .route-luggage-row { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
             .hero-section { height: 60vh; min-height: 380px; }
@@ -432,8 +469,80 @@
             <p class="section-subtitle">行李物流与交通方式一目了然，轻松出行</p>
         </div>
 
+        <div class="glass-card p-5 sm:p-6">
+            <div class="route-card-grid">
+                <div class="route-segment-card kyushu">
+                    <div class="route-segment-head">
+                        <div class="route-segment-icon">🌋</div>
+                        <div>
+                            <div class="route-segment-title">九州自然线</div>
+                            <div class="route-segment-subtitle">Day 1 - Day 5 · 进山、温泉、回福冈</div>
+                        </div>
+                    </div>
+                    <div class="route-step-list">
+                        <span class="route-step">✈️ 福冈机场</span>
+                        <span class="route-step">🍱 博多站</span>
+                        <span class="route-step">🚄 熊本</span>
+                        <span class="route-step">🌋 阿苏</span>
+                        <span class="route-step">⛩️ 高千穗</span>
+                        <span class="route-step">🏔️ 九重</span>
+                        <span class="route-step">♨️ 别府/大分</span>
+                        <span class="route-step">🛍️ 福冈</span>
+                    </div>
+                    <div class="route-step-note">地铁、新干线、包车和 JR 串联。细节交给每日行程，这里只看大方向。</div>
+                </div>
+
+                <div class="route-segment-card tokyo">
+                    <div class="route-segment-head">
+                        <div class="route-segment-icon">🎮</div>
+                        <div>
+                            <div class="route-segment-title">东京夏日线</div>
+                            <div class="route-segment-subtitle">Day 5 - Day 7 · 两国为基地</div>
+                        </div>
+                    </div>
+                    <div class="route-step-list">
+                        <span class="route-step">🏠 两国</span>
+                        <span class="route-step">🌊 葛西赶海</span>
+                        <span class="route-step">🎮 台场 Joypolis</span>
+                        <span class="route-step">🎢 东京巨蛋城</span>
+                        <span class="route-step">🎆 隅田川花火</span>
+                        <span class="route-step">🏠 回两国</span>
+                    </div>
+                    <div class="route-step-note">东京段以家为据点，白天放电，晚上回两国休息，避免频繁搬运行李。</div>
+                </div>
+
+                <div class="route-segment-card return">
+                    <div class="route-segment-head">
+                        <div class="route-segment-icon">✈️</div>
+                        <div>
+                            <div class="route-segment-title">返程线</div>
+                            <div class="route-segment-subtitle">Day 8 · 仅重娇与辰骏返程</div>
+                        </div>
+                    </div>
+                    <div class="route-step-list">
+                        <span class="route-step">🏠 两国</span>
+                        <span class="route-step">🚌 成田机场</span>
+                        <span class="route-step">✈️ 国际线</span>
+                        <span class="route-step">🏙️ 上海</span>
+                    </div>
+                    <div class="route-step-note">晓春继续留在日本。返程当天只保留关键节点，避免动线图过长。</div>
+                </div>
+            </div>
+
+            <div class="route-luggage-row">
+                <div class="route-luggage-card">
+                    <span class="text-xl">🧳</span>
+                    <span><strong class="text-emerald-700">Day 1 / Day 2 早上</strong> 大行李寄出 → Day 4 大分酒店收</span>
+                </div>
+                <div class="route-luggage-card">
+                    <span class="text-xl">🎒</span>
+                    <span><strong class="text-emerald-700">Day 5 早上</strong> 行李寄到福冈机场 → 空手购物</span>
+                </div>
+            </div>
+        </div>
+
         <!-- 桌面版横向流程图 -->
-        <div class="hidden md:block glass-card p-8">
+        <div class="hidden">
             <div class="flex flex-wrap items-start justify-center gap-2 gap-y-10">
                 <div class="flow-group-break"><span>九州自然线</span></div>
                 <!-- Day 1: 福冈 -->
@@ -553,9 +662,9 @@
                     <div class="flow-icon" style="background:#fef3e2;">🏙️</div>
                     <div class="flow-label">Day 8<br>上海 (PVG/SHA)</div>
                     <div class="text-xs text-gray-400 mt-1">抵达目的地</div>
-                    <!-- 返程备注：仅钟娇与晨骏返程 -->
+                    <!-- 返程备注：仅重娇与辰骏返程 -->
                     <div class="mt-2">
-                        <span class="inline-block text-[0.6rem] text-gray-500 bg-gray-100/80 px-2 py-0.5 rounded-full whitespace-nowrap">（注：仅钟娇与晨骏返程）</span>
+                        <span class="inline-block text-[0.6rem] text-gray-500 bg-gray-100/80 px-2 py-0.5 rounded-full whitespace-nowrap">（注：仅重娇与辰骏返程）</span>
                     </div>
                 </div>
             </div>
@@ -578,7 +687,7 @@
 
         
         <!-- 移动端纵向流程图 -->
-        <div class="md:hidden glass-card p-6">
+        <div class="hidden">
             <div class="flex flex-col gap-4">
                 <div class="mobile-flow-group">九州自然线</div>
                 <!-- Day 1: 福冈 -->
@@ -668,7 +777,7 @@
                         <div class="text-xs text-gray-400">抵达目的地</div>
                         <!-- 返程备注 -->
                         <div class="mt-1">
-                            <span class="inline-block text-[0.6rem] text-gray-500 bg-gray-100/80 px-2 py-0.5 rounded-full">（注：仅钟娇与晨骏返程）</span>
+                            <span class="inline-block text-[0.6rem] text-gray-500 bg-gray-100/80 px-2 py-0.5 rounded-full">（注：仅重娇与辰骏返程）</span>
                         </div>
                     </div>
                 </div>
@@ -704,7 +813,7 @@
                 <div class="timeline-title">福冈大汇合，新干线闪现大自然</div>
                 <div class="timeline-summary"><span>福冈国内线到达汇合</span><span>地铁到博多站</span><span>博多站午餐</span><span>新干线到熊本</span><span>宿阿苏</span><span>风险：首日转场紧</span></div>
                 <div class="timeline-desc">
-                    <strong>08:00 - 11:30（飞行移动）：</strong>两地奔赴。重娇与晨骏搭乘春秋航空 (9C6609，08:00 PVG - 09:55 FUK) 从上海浦东飞往福冈机场 (福岡空港)；晓春搭乘全日空 (NH247，09:40 HND - 11:30 FUK) 从东京羽田 (羽田空港) 飞往福冈。全家在福冈机场大汇合。<br>
+                    <strong>08:00 - 11:30（飞行移动）：</strong>两地奔赴。重娇与辰骏搭乘春秋航空 (9C6609，08:00 PVG - 09:55 FUK) 从上海浦东飞往福冈机场 (福岡空港)；晓春搭乘全日空 (NH247，09:40 HND - 11:30 FUK) 从东京羽田 (羽田空港) 飞往福冈。全家在福冈机场大汇合。<br>
                     <strong>11:30 - 12:00（地铁移动）：</strong>从国内线到达区进入福冈机场地铁站，搭乘福冈市地下铁机场线前往<strong>博多站</strong>（约 5 分钟车程，含步行与等车预留约 20 - 30 分钟）。<br>
                     <strong>12:00 - 13:20（博多站午餐）：</strong>在博多站解决午饭。首选 JR 博多城 9F/10F <strong>くうてん</strong>坐下来吃；若想快速吃博多特色，可去博多 DEITOS 2F <strong>博多めん街道</strong>。<br>
                     <strong>13:20 - 15:30（新干线移动）：</strong>午餐后整理行李、取票进站，搭乘九州新干线 (九州新幹線) 从<strong>博多站</strong>直达 <strong>JR 熊本站 (熊本駅)</strong>。<br>
@@ -860,7 +969,7 @@
                 <div class="timeline-title">圆满收官与返程</div>
                 <div class="timeline-summary"><span>两国出发</span><span>成田机场</span><span>返上海</span><span>风险：国际线预留时间</span></div>
                 <div class="timeline-desc">
-                    <strong>简要行程：</strong>钟娇与晨骏从两国（両国）出发，前往成田机场搭乘航班返回上海。我将继续留在日本。八天七夜的全家暑期旅行圆满结束。
+                    <strong>简要行程：</strong>重娇与辰骏从两国（両国）出发，前往成田机场搭乘航班返回上海。我将继续留在日本。八天七夜的全家暑期旅行圆满结束。
                 </div>
             </div>
         </div>
