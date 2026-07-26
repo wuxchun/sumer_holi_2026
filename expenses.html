@@ -11,49 +11,101 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background: #FDF5E6; color: #26352d; line-height: 1.75;
+            background: #FDF5E6;
+            color: #26352d;
+            line-height: 1.75;
         }
         .nav-bar {
-            position: sticky; top: 0; z-index: 20;
-            background: rgba(253,245,230,0.9); backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(253,245,230,0.9);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(126,200,163,0.16);
         }
         .hero {
             background:
-                linear-gradient(180deg, rgba(253,245,230,0.15), #FDF5E6 92%),
+                linear-gradient(180deg, rgba(253,245,230,0.25), #FDF5E6 88%),
                 linear-gradient(135deg, #e8f8e8 0%, #f0f8ff 48%, #fff4d8 100%);
         }
         .serif { font-family: 'Noto Serif SC', serif; }
         .glass-card {
-            background: rgba(255,255,255,0.86); backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.9); border-radius: 18px;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.92);
+            border-radius: 18px;
             box-shadow: 0 14px 42px rgba(31,90,58,0.08);
         }
         .summary-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(232,248,232,0.82));
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(232,248,232,0.82));
             border: 1px solid rgba(126,200,163,0.22);
-            border-radius: 16px; padding: 18px;
+            border-radius: 16px;
+            padding: 18px;
         }
-        .cost-table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: 14px; }
+        .cost-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 14px;
+        }
         .cost-table th {
             background: linear-gradient(135deg, #7ec8a3, #5cb85c);
-            color: white; text-align: left; font-size: 0.86rem; padding: 13px 16px;
+            color: white;
+            text-align: left;
+            font-size: 0.86rem;
+            padding: 12px 14px;
+            white-space: nowrap;
         }
         .cost-table td {
-            background: white; border-bottom: 1px solid rgba(126,200,163,0.12);
-            padding: 13px 16px; font-size: 0.92rem;
+            background: white;
+            border-bottom: 1px solid rgba(126,200,163,0.12);
+            padding: 12px 14px;
+            font-size: 0.92rem;
+            vertical-align: top;
         }
         .cost-table tr:last-child td { border-bottom: none; }
         .tag {
-            display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 10px;
-            background: #eef9f1; color: #2d7d46; font-size: 0.74rem; font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 3px 10px;
+            background: #eef9f1;
+            color: #2d7d46;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+        .bar-track {
+            height: 10px;
+            background: #edf7ef;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #7ec8a3, #f4b84a);
         }
         @media (max-width: 720px) {
             .cost-table thead { display: none; }
             .cost-table, .cost-table tbody, .cost-table tr, .cost-table td { display: block; width: 100%; }
-            .cost-table tr { margin-bottom: 12px; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px rgba(31,90,58,0.06); }
-            .cost-table td { display: flex; justify-content: space-between; gap: 16px; }
-            .cost-table td::before { content: attr(data-label); color: #6b8a7a; font-weight: 700; }
+            .cost-table tr {
+                margin-bottom: 12px;
+                border-radius: 14px;
+                overflow: hidden;
+                box-shadow: 0 8px 24px rgba(31,90,58,0.06);
+            }
+            .cost-table td {
+                display: flex;
+                justify-content: space-between;
+                gap: 16px;
+            }
+            .cost-table td::before {
+                content: attr(data-label);
+                color: #6b8a7a;
+                font-weight: 700;
+                flex: 0 0 7em;
+            }
         }
     </style>
 </head>
@@ -62,7 +114,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
             <a href="./index.html" class="flex items-center gap-2 text-emerald-800 font-bold text-sm sm:text-base">
                 <i data-lucide="leaf" class="w-5 h-5 text-emerald-500"></i>
-                <span>九州·夏日物语</span>
+                <span>九州・夏日物语</span>
             </a>
             <a href="./index.html#budget" class="text-sm text-emerald-700 hover:text-emerald-900 flex items-center gap-1">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -79,43 +131,48 @@
                     TRIP COST
                 </div>
                 <h1 class="serif text-3xl sm:text-5xl font-bold text-emerald-950 leading-tight">九州东京旅行费用明细</h1>
-                <p class="text-gray-600 mt-4 text-base sm:text-lg">用于逐项记录本次行程的机票、住宿、交通、餐饮与门票费用。当前先录入妻子和儿子的往返机票费用。</p>
+                <p class="text-gray-600 mt-4 text-base sm:text-lg">合并机票、住宿、包车等已知大项，以及 7/19 06:47 到 7/25 21:12 的刷卡/PayPay 旅途消费。</p>
             </div>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <section class="grid sm:grid-cols-3 gap-4 -mt-8 mb-8">
+        <section class="grid sm:grid-cols-4 gap-4 -mt-8 mb-8">
             <div class="summary-card">
-                <div class="text-sm text-gray-500">人民币机票合计</div>
-                <div class="text-3xl font-black text-emerald-700 mt-1">¥6,666</div>
-                <div class="text-xs text-gray-500 mt-2">上海→福冈 + 东京→上海</div>
+                <div class="text-sm text-gray-500">人民币已付</div>
+                <div class="text-3xl font-black text-emerald-700 mt-1">RMB 13,016</div>
+                <div class="text-xs text-gray-500 mt-2">国际机票、烟花席、九州包车</div>
             </div>
             <div class="summary-card">
-                <div class="text-sm text-gray-500">已录入项目</div>
-                <div class="text-3xl font-black text-emerald-700 mt-1">3</div>
-                <div class="text-xs text-gray-500 mt-2">机票拆分记录</div>
+                <div class="text-sm text-gray-500">日元已知大项</div>
+                <div class="text-3xl font-black text-emerald-700 mt-1">JPY 308,553</div>
+                <div class="text-xs text-gray-500 mt-2">日本国内机票 + 九州 4 晚住宿</div>
             </div>
             <div class="summary-card">
-                <div class="text-sm text-gray-500">费用状态</div>
-                <div class="text-3xl font-black text-emerald-700 mt-1">已知</div>
-                <div class="text-xs text-gray-500 mt-2">后续继续补住宿/交通/餐饮</div>
+                <div class="text-sm text-gray-500">旅途消费</div>
+                <div class="text-3xl font-black text-emerald-700 mt-1">JPY 174,627</div>
+                <div class="text-xs text-gray-500 mt-2">CSV 期间内 44 笔出金</div>
+            </div>
+            <div class="summary-card">
+                <div class="text-sm text-gray-500">合计折人民币</div>
+                <div class="text-3xl font-black text-emerald-700 mt-1">约 RMB 35,484</div>
+                <div class="text-xs text-gray-500 mt-2">按网页原记录约 0.0465 RMB/JPY 估算</div>
             </div>
         </section>
 
         <section class="glass-card p-5 sm:p-7 mb-8">
             <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
                 <div>
-                    <div class="text-xs font-bold text-emerald-700 tracking-wide">FLIGHTS</div>
-                    <h2 class="serif text-2xl font-bold text-emerald-950">机票费用</h2>
+                    <div class="text-xs font-bold text-emerald-700 tracking-wide">KNOWN BIG ITEMS</div>
+                    <h2 class="serif text-2xl font-bold text-emerald-950">机票、住宿、包车等已知大项</h2>
                 </div>
-                <span class="tag">妻子 + 儿子</span>
+                <span class="tag">来自网页底部记录</span>
             </div>
             <table class="cost-table">
                 <thead>
                     <tr>
-                        <th>日期/航段</th>
-                        <th>对象</th>
+                        <th>分类</th>
+                        <th>项目</th>
                         <th>币种</th>
                         <th>金额</th>
                         <th>备注</th>
@@ -123,53 +180,146 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td data-label="日期/航段">上海 → 福冈</td>
-                        <td data-label="对象">妻子</td>
+                        <td data-label="分类">国际机票</td>
+                        <td data-label="项目">上海 → 福冈，东京 → 上海</td>
                         <td data-label="币种">RMB</td>
-                        <td data-label="金额" class="font-bold text-gray-800">1,112</td>
-                        <td data-label="备注" class="text-gray-500">来日本机票</td>
+                        <td data-label="金额" class="font-bold">6,666</td>
+                        <td data-label="备注" class="text-gray-500">妻子和儿子往返日本</td>
                     </tr>
                     <tr>
-                        <td data-label="日期/航段">上海 → 福冈</td>
-                        <td data-label="对象">儿子</td>
-                        <td data-label="币种">RMB</td>
-                        <td data-label="金额" class="font-bold text-gray-800">902</td>
-                        <td data-label="备注" class="text-gray-500">来日本机票</td>
+                        <td data-label="分类">国内机票</td>
+                        <td data-label="项目">ANA 羽田 → 福冈、福冈 → 羽田</td>
+                        <td data-label="币种">JPY</td>
+                        <td data-label="金额" class="font-bold">57,680</td>
+                        <td data-label="备注" class="text-gray-500">去程单人 + 回程 3 人</td>
                     </tr>
                     <tr>
-                        <td data-label="日期/航段">东京 → 上海</td>
-                        <td data-label="对象">妻子 + 儿子</td>
-                        <td data-label="币种">RMB</td>
-                        <td data-label="金额" class="font-bold text-gray-800">4,652</td>
-                        <td data-label="备注" class="text-gray-500">回上海机票</td>
+                        <td data-label="分类">住宿</td>
+                        <td data-label="项目">阿苏、 高千穗、久住、大分 4 晚</td>
+                        <td data-label="币种">JPY</td>
+                        <td data-label="金额" class="font-bold">250,873</td>
+                        <td data-label="备注" class="text-gray-500">含网页已记录的 4 家酒店/旅馆</td>
                     </tr>
                     <tr>
-                        <td data-label="日期/航段" class="font-bold text-emerald-950">小计</td>
-                        <td data-label="对象">2 人</td>
+                        <td data-label="分类">包车</td>
+                        <td data-label="项目">九州 7/19-7/21 包车</td>
                         <td data-label="币种">RMB</td>
-                        <td data-label="金额" class="font-black text-emerald-700">6,666</td>
-                        <td data-label="备注" class="text-gray-500">1,112 + 902 + 4,652</td>
+                        <td data-label="金额" class="font-bold">5,000</td>
+                        <td data-label="备注" class="text-gray-500">九州前半段移动成本</td>
+                    </tr>
+                    <tr>
+                        <td data-label="分类">活动</td>
+                        <td data-label="项目">隅田川花火大会观览席</td>
+                        <td data-label="币种">RMB</td>
+                        <td data-label="金额" class="font-bold">1,350</td>
+                        <td data-label="备注" class="text-gray-500">东京段已预约</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <section class="grid md:grid-cols-2 gap-5">
-            <div class="glass-card p-5 sm:p-7">
-                <div class="text-xs font-bold text-emerald-700 tracking-wide">NEXT</div>
-                <h2 class="serif text-xl font-bold text-emerald-950 mt-1">待补费用分类</h2>
-                <div class="grid grid-cols-2 gap-3 mt-5 text-sm">
-                    <div class="rounded-xl bg-white/75 border border-emerald-100 p-4">住宿</div>
-                    <div class="rounded-xl bg-white/75 border border-emerald-100 p-4">包车/JR/地铁</div>
-                    <div class="rounded-xl bg-white/75 border border-emerald-100 p-4">餐饮</div>
-                    <div class="rounded-xl bg-white/75 border border-emerald-100 p-4">门票/活动</div>
+        <section class="grid lg:grid-cols-5 gap-5 mb-8">
+            <div class="glass-card p-5 sm:p-7 lg:col-span-2">
+                <div class="text-xs font-bold text-emerald-700 tracking-wide">CSV SUMMARY</div>
+                <h2 class="serif text-xl font-bold text-emerald-950 mt-1">旅途消费分类</h2>
+                <div class="space-y-4 mt-5">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>餐饮/补给</span><b>¥109,409</b></div>
+                        <div class="bar-track"><div class="bar-fill" style="width: 62.7%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>购物/伴手礼</span><b>¥33,318</b></div>
+                        <div class="bar-track"><div class="bar-fill" style="width: 19.1%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>门票/活动</span><b>¥20,000</b></div>
+                        <div class="bar-track"><div class="bar-fill" style="width: 11.5%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>交通/移动</span><b>¥11,900</b></div>
+                        <div class="bar-track"><div class="bar-fill" style="width: 6.8%"></div></div>
+                    </div>
                 </div>
             </div>
-            <div class="glass-card p-5 sm:p-7">
-                <div class="text-xs font-bold text-emerald-700 tracking-wide">NOTE</div>
-                <h2 class="serif text-xl font-bold text-emerald-950 mt-1">记录规则</h2>
-                <p class="text-sm text-gray-600 mt-4">人民币和日元先分开记录，避免汇率变化造成混乱。需要汇总成人民币时，再统一使用同一个汇率折算。</p>
+            <div class="glass-card p-5 sm:p-7 lg:col-span-3">
+                <div class="text-xs font-bold text-emerald-700 tracking-wide">INSIGHT</div>
+                <h2 class="serif text-xl font-bold text-emerald-950 mt-1">费用观察</h2>
+                <div class="grid sm:grid-cols-3 gap-4 mt-5 text-sm">
+                    <div class="rounded-2xl bg-white/75 border border-emerald-100 p-4">
+                        <div class="font-bold text-emerald-800">餐饮是最大头</div>
+                        <p class="text-gray-600 mt-2">CSV 消费里餐饮/补给约占 63%。7/24 的天空烧肉一笔 ¥44,480 是最高单笔。</p>
+                    </div>
+                    <div class="rounded-2xl bg-white/75 border border-emerald-100 p-4">
+                        <div class="font-bold text-emerald-800">交通大项已前置</div>
+                        <p class="text-gray-600 mt-2">包车用人民币记录，CSV 内交通只剩 GO 打车和 JR 九州列车预约，共 ¥11,900。</p>
+                    </div>
+                    <div class="rounded-2xl bg-white/75 border border-emerald-100 p-4">
+                        <div class="font-bold text-emerald-800">7/24 消费峰值</div>
+                        <p class="text-gray-600 mt-2">台场/东京段当天消费 ¥86,439，包含 Joypolis/水族馆预约、购物和晚餐。</p>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <section class="glass-card p-5 sm:p-7 mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+                <div>
+                    <div class="text-xs font-bold text-emerald-700 tracking-wide">DAILY TOTALS</div>
+                    <h2 class="serif text-2xl font-bold text-emerald-950">每日旅途消费</h2>
+                </div>
+                <span class="tag">7/19 06:47 - 7/25 21:12</span>
+            </div>
+            <table class="cost-table">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>交通</th>
+                        <th>餐饮/补给</th>
+                        <th>门票/活动</th>
+                        <th>购物/伴手礼</th>
+                        <th>当日合计</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td data-label="日期">7/19 福冈 → 阿苏</td><td data-label="交通">1,400</td><td data-label="餐饮/补给">7,254</td><td data-label="门票/活动">0</td><td data-label="购物/伴手礼">0</td><td data-label="当日合计" class="font-bold">8,654</td></tr>
+                    <tr><td data-label="日期">7/20 阿苏 → 高千穗</td><td data-label="交通">0</td><td data-label="餐饮/补给">11,947</td><td data-label="门票/活动">0</td><td data-label="购物/伴手礼">0</td><td data-label="当日合计" class="font-bold">11,947</td></tr>
+                    <tr><td data-label="日期">7/21 高千穗 → 久住</td><td data-label="交通">0</td><td data-label="餐饮/补给">110</td><td data-label="门票/活动">0</td><td data-label="购物/伴手礼">0</td><td data-label="当日合计" class="font-bold">110</td></tr>
+                    <tr><td data-label="日期">7/22 久住 → 别府 → 大分</td><td data-label="交通">10,500</td><td data-label="餐饮/补给">20,471</td><td data-label="门票/活动">5,400</td><td data-label="购物/伴手礼">0</td><td data-label="当日合计" class="font-bold">36,371</td></tr>
+                    <tr><td data-label="日期">7/23 大分 → 福冈 → 东京</td><td data-label="交通">0</td><td data-label="餐饮/补给">9,298</td><td data-label="门票/活动">0</td><td data-label="购物/伴手礼">5,834</td><td data-label="当日合计" class="font-bold">15,132</td></tr>
+                    <tr><td data-label="日期">7/24 葛西/台场</td><td data-label="交通">0</td><td data-label="餐饮/补给">50,637</td><td data-label="门票/活动">14,600</td><td data-label="购物/伴手礼">21,202</td><td data-label="当日合计" class="font-bold">86,439</td></tr>
+                    <tr><td data-label="日期">7/25 东京</td><td data-label="交通">0</td><td data-label="餐饮/补给">9,692</td><td data-label="门票/活动">0</td><td data-label="购物/伴手礼">6,282</td><td data-label="当日合计" class="font-bold">15,974</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="glass-card p-5 sm:p-7">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+                <div>
+                    <div class="text-xs font-bold text-emerald-700 tracking-wide">TOP TRANSACTIONS</div>
+                    <h2 class="serif text-2xl font-bold text-emerald-950">较大单笔消费</h2>
+                </div>
+                <span class="tag">便于复盘</span>
+            </div>
+            <table class="cost-table">
+                <thead>
+                    <tr>
+                        <th>时间</th>
+                        <th>分类</th>
+                        <th>店铺/项目</th>
+                        <th>金额</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td data-label="时间">7/24 19:11</td><td data-label="分类">餐饮/补给</td><td data-label="店铺/项目">天空焼肉 星遊山</td><td data-label="金额" class="font-bold">44,480</td></tr>
+                    <tr><td data-label="时间">7/22 19:58</td><td data-label="分类">餐饮/补给</td><td data-label="店铺/项目">寿司ろばた八條 中央町店</td><td data-label="金额" class="font-bold">14,828</td></tr>
+                    <tr><td data-label="时间">7/22 20:57</td><td data-label="分类">交通/移动</td><td data-label="店铺/项目">JR 九州列车预约服务</td><td data-label="金额" class="font-bold">10,500</td></tr>
+                    <tr><td data-label="时间">7/24 14:12</td><td data-label="分类">购物/伴手礼</td><td data-label="店铺/项目">ダイバーシティ東京 プラザ</td><td data-label="金额" class="font-bold">10,087</td></tr>
+                    <tr><td data-label="时间">7/24 13:31</td><td data-label="分类">购物/伴手礼</td><td data-label="店铺/项目">ダイバーシティ東京 プラザ</td><td data-label="金额" class="font-bold">9,337</td></tr>
+                    <tr><td data-label="时间">7/24 00:08</td><td data-label="分类">门票/活动</td><td data-label="店铺/项目">アソビュー！</td><td data-label="金额" class="font-bold">9,100</td></tr>
+                    <tr><td data-label="时间">7/20 19:09</td><td data-label="分类">餐饮/补给</td><td data-label="店铺/项目">たちや鳥</td><td data-label="金额" class="font-bold">8,700</td></tr>
+                    <tr><td data-label="时间">7/24 00:15</td><td data-label="分类">门票/活动</td><td data-label="店铺/项目">アソビュー！</td><td data-label="金额" class="font-bold">5,500</td></tr>
+                </tbody>
+            </table>
         </section>
     </main>
 
