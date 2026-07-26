@@ -367,6 +367,7 @@
             <a href="#risks" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">风险排查</a>
             <a href="#todo" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">待办清单</a>
             <a href="#budget" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">预算预估</a>
+            <a href="./expenses.html" onclick="closeMobileMenu()" class="text-lg font-medium text-gray-700 hover:text-emerald-700 transition-colors">费用明细</a>
 
         </div>
     </div>
@@ -387,6 +388,7 @@
                     <a href="#risks" class="nav-link">风险排查</a>
                     <a href="#todo" class="nav-link">待办清单</a>
                     <a href="#budget" class="nav-link">预算预估</a>
+                    <a href="./expenses.html" class="nav-link">费用明细</a>
                 </div>
 
                 <button onclick="openMobileMenu()" class="md:hidden text-gray-600 hover:text-emerald-700 transition-colors">
@@ -1143,6 +1145,16 @@
             <p class="section-subtitle">已付账单与核心硬支出一览</p>
         </div>
         <div class="glass-card p-6 sm:p-8">
+            <div class="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl bg-emerald-50/80 border border-emerald-100 px-4 py-3">
+                <div>
+                    <div class="font-bold text-emerald-900">查看逐项费用明细</div>
+                    <div class="text-sm text-gray-600">机票、住宿、交通、餐饮和门票会逐项记录。</div>
+                </div>
+                <a href="./expenses.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 text-white px-4 py-2 text-sm font-bold hover:bg-emerald-700 transition-colors">
+                    打开费用页
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
             <table class="budget-table">
                 <thead>
                     <tr>
